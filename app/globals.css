@@ -1,0 +1,261 @@
+@import "tailwindcss";
+@import "./grid.css";
+
+:root {
+  --body-background: #ffffff;
+  --background: #ffffff;
+  --foreground: #171717;
+  --breakpoint-xl: 1280px;
+  --color-primary: #000000;
+  --color-secondary: #314158;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+.swiper {
+  --swiper-navigation-color: #ffffff;
+  --swiper-navigation-size: 30px;
+}
+
+body {
+  font-family: serif;
+  font-weight: 400;
+  font-style: normal;
+  background: var(--body-background);
+}
+
+html {
+  font-size: 17px;
+}
+
+.font-title {
+  font-family: var(--font-title);
+}
+
+.back {
+  position: fixed;
+  top: 60px;
+  padding: 10px 0;
+  background: transparent;
+  z-index: 5;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 40;
+}
+
+.nav-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  transform: translateX(-120%);
+  transition: all 0.5s;
+  transition-timing-function: cubic-bezier(0.82, 0.01, 0.77, 0.78);
+}
+.nav-menu-slice {
+  position: absolute;
+  top: 0;
+  right: -48px;
+  height: 100%;
+  z-index: 300;
+}
+.nav-menu-items {
+  padding: 20px;
+  transform: skewY(-10deg);
+  color: #0e172a;
+}
+.nav-menu-items a {
+  color: #0e172a;
+  font-size: 70px;
+  transition: all 0.3s ease-in-out;
+}
+.nav-menu-items a:hover {
+  color: #f24348;
+}
+.nav-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0e172a;
+  opacity: 0;
+  transition: all 0.3s ease-in;
+}
+
+@media (min-width: 640px) {
+  .nav-menu {
+    width: 50%;
+  }
+}
+
+.isOpen.nav {
+  pointer-events: all;
+}
+.isOpen .nav-shadow {
+  opacity: 0.4;
+}
+.isOpen .nav-menu {
+  transform: translateX(0);
+}
+
+.html-video {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+  opacity: 0.1;
+  z-index: -1;
+}
+
+.icon {
+  display: inline;
+  width: 55px;
+  height: 30px;
+  margin: 0 auto;
+  fill: currentColor;
+}
+
+.wp-block-quote {
+  border-left: 0.25em solid;
+  margin: 0 0 1.75em;
+  padding-left: 1em;
+}
+
+.wp-block-quote cite,
+.wp-block-quote footer {
+  color: currentColor;
+  font-size: 0.8125em;
+  font-style: normal;
+  position: relative;
+}
+
+.wp-block-quote:where(.has-text-align-right) {
+  border-left: none;
+  border-right: 0.25em solid;
+  padding-left: 0;
+  padding-right: 1em;
+}
+
+.wp-block-quote:where(.has-text-align-center) {
+  border: none;
+  padding-left: 0;
+}
+
+.wp-block-quote.is-large,
+.wp-block-quote.is-style-large,
+.wp-block-quote:where(.is-style-plain) {
+  border: none;
+}
+
+/*.swiper {
+  width: 100%;
+  height: 100vh;
+}
+
+.swiper-slide {
+  font-size: 18px;
+  color: #fff;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 40px 60px;
+}
+
+.swiper-pagination {
+  bottom: 60px !important;
+}
+@media (min-width: 640px) {
+  .swiper-pagination {
+    right: 150px !important;
+    left: auto !important;
+    width: auto !important;
+  }
+}
+
+.swiper-pagination-bullet {
+  width: 30px !important;
+  height: 10px !important;
+  border-radius: 10px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #fff !important;
+}
+
+.autoplay-progress {
+  position: absolute;
+  right: 50px;
+  bottom: 50px;
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.autoplay-progress svg {
+  --progress: 0;
+  position: absolute;
+  left: 0;
+  top: 0px;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  stroke-width: 4px;
+  stroke: #ffffff;
+  fill: none;
+  stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
+  stroke-dasharray: 125.6;
+  transform: rotate(-90deg);
+}
+
+.parallax-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 130%;
+  height: 100%;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: center;
+}
+
+.swiper-slide .title {
+  font-size: 41px;
+  font-weight: 300;
+}
+
+.swiper-slide .subtitle {
+  font-size: 21px;
+}
+
+.swiper-slide .text {
+  font-size: 14px;
+  max-width: 400px;
+  line-height: 1.3;
+}
+*/

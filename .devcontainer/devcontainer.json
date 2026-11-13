@@ -1,0 +1,42 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.134.0/containers/javascript-node
+{
+  "name": "Next Wordpress Expertises Bati Ancien",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        // synchronize-marker:vscode-extensions:begin
+        // general
+        "eamodio.gitlens",
+        "vscode-icons-team.vscode-icons",
+        "vincaslt.highlight-matching-tag",
+        // code assist
+        "visualstudioexptteam.vscodeintellicode",
+        "formulahendry.auto-rename-tag",
+        // code style + formatting
+        "editorconfig.editorconfig",
+        "esbenp.prettier-vscode",
+        "stylelint.vscode-stylelint",
+        "csstools.postcss",
+        "bradlc.vscode-tailwindcss",
+        "dbaeumer.vscode-eslint",
+        // documentation
+        "streetsidesoftware.code-spell-checker",
+        "yzhang.markdown-all-in-one"
+        // synchronize-marker:vscode-extensions:end
+      ]
+    }
+  },
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": { "label": "Next dev", "onAutoForward": "notify" }
+  },
+  "postCreateCommand": "npm install",
+  "remoteUser": "node"
+}

@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "api.portfolio.stepanekb.odns.fr",
+        hostname: "expertises-bati-ancien.fr",
       },
     ],
   },

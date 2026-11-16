@@ -1,25 +1,29 @@
 import "./globals.css";
 import type { Metadata } from "next";
-//import { Geist } from "next/font/google";
+import { Instrument_Serif, Urbanist } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 import Header from "@/components/layout/header";
-
-import { Anton } from "next/font/google";
 import Footer from "@/components/layout/footer";
+import IconSprite from "@/components/ui/icon-sprite";
+import { site } from "@/lib/content";
 import { getGlobalStylesheet } from "@/services/global-style";
-const fontTitle = Anton({
+
+const urbanist = Urbanist({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-urbanist",
+});
+
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
-  variable: "--font-title",
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
 });
-/*const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});*/
 
 export const metadata: Metadata = {
-  title: "Medhi sefrioui",
-  description: "Medhi sefrioui",
+  title: `${site.name} — ${site.baseline}`,
+  description: site.description,
 };
 
 export default async function RootLayout({
@@ -27,28 +31,28 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Styles globaux WordPress, scopés à #cms-container (pages issues du CMS)
   const globalCss = await getGlobalStylesheet();
 
   return (
-    <>
-      <html lang="en" className={`${fontTitle.variable}`}>
-        <head>
-          {globalCss && (
-            <style
-              href="wp-global-styles"
-              precedence="high"
-              dangerouslySetInnerHTML={{ __html: globalCss }}
-            />
-          )}
-        </head>
-        <body className={`bg-white text-secondary`}>
-          <ViewTransitions>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </ViewTransitions>
-        </body>
-      </html>
-    </>
+    <html lang="fr" className={`${urbanist.variable} ${instrumentSerif.variable}`}>
+      <head>
+        {globalCss && (
+          <style
+            href="wp-global-styles"
+            precedence="high"
+            dangerouslySetInnerHTML={{ __html: globalCss }}
+          />
+        )}
+      </head>
+      <body>
+        <ViewTransitions>
+          <IconSprite />
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </ViewTransitions>
+      </body>
+    </html>
   );
 }

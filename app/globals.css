@@ -1,141 +1,122 @@
 @import "tailwindcss";
 @import "./grid.css";
 
-:root {
-  --body-background: #ffffff;
-  --background: #ffffff;
-  --foreground: #171717;
-  --breakpoint-xl: 1280px;
-  --color-primary: #000000;
-  --color-secondary: #314158;
+/* Design tokens — Expertises Bâti Ancien */
+@theme {
+  --color-ink: #1c2a1a; /* texte principal, footer */
+  --color-forest: #2f4b2c; /* accent principal */
+  --color-forest-700: #3e5e36;
+  --color-forest-600: #4d6e43;
+  --color-sage: #c7dcb0; /* accent clair sur fond sombre */
+  --color-sage-300: #b5cc9c;
+  --color-paper: #f4f5ef; /* fond de page */
+  --color-mist: #eef1e7; /* fond témoignages */
+  --color-line: #e1e4d8;
+  --color-line-soft: #eceee6;
+  --color-muted: #566252;
+  --color-muted-dark: #455041;
+  --color-body: #2f3a2c;
+  --color-on-dark: #e3ead9;
+  --color-on-dark-muted: #d6e0cc;
+  --color-field: #f9faf6;
+  --color-field-line: #cdd5c2;
+  --color-placeholder: #e6ecdd;
+  --color-placeholder-line: #a9b89a;
+
+  --shadow-card: 0 18px 40px rgb(28 42 26 / 0.08);
 }
 
+/* Polices chargées par next/font (voir app/layout.tsx) */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-primary: var(--color-primary);
-  --color-secondary: var(--color-secondary);
+  --font-sans: var(--font-urbanist), system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
   }
+  body {
+    @apply bg-paper font-sans leading-normal text-ink antialiased;
+  }
+  a {
+    @apply text-forest hover:text-ink;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-forest);
+    outline-offset: 3px;
+  }
+  .on-dark :focus-visible {
+    outline-color: var(--color-sage);
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-sm font-semibold tracking-[0.08em] text-forest uppercase;
+  }
+  .h2 {
+    @apply m-0 leading-[1.1] font-semibold tracking-[-0.02em];
+  }
+  .serif-accent {
+    @apply font-serif font-normal text-forest italic;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2.5 rounded-full font-semibold no-underline;
+  }
+
+  .check-list {
+    @apply m-0 flex list-none flex-col gap-2.5 p-0;
+  }
+  .check-list li {
+    @apply flex items-start gap-2.5 text-base text-body;
+  }
+  .check-list svg {
+    @apply mt-[3px] shrink-0;
+  }
+
+  .field {
+    @apply min-h-12 rounded-xl border border-field-line bg-field px-3.5 text-base font-normal text-ink;
+  }
+  .field-label {
+    @apply flex flex-col gap-1.5 text-sm font-semibold;
+  }
+}
+
+/* Image de fond du hero : déposer le visuel dans public/images/hero.jpg */
+.hero-bg {
+  background-image:
+    linear-gradient(180deg, rgb(20 32 18 / 0.6) 0px, rgb(20 32 18 / 0) 220px),
+    linear-gradient(
+      90deg,
+      rgb(20 32 18 / 0.88) 0%,
+      rgb(20 32 18 / 0.72) 50%,
+      rgb(20 32 18 / 0.35) 100%
+    ),
+    url("/images/hero.jpg");
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
+}
+
+/* ---------- Héritage portfolio (routes projects / pages WordPress) ---------- */
+
+.font-title {
+  font-family: var(--font-serif);
 }
 
 .swiper {
   --swiper-navigation-color: #ffffff;
   --swiper-navigation-size: 30px;
-}
-
-body {
-  font-family: serif;
-  font-weight: 400;
-  font-style: normal;
-  background: var(--body-background);
-}
-
-html {
-  font-size: 17px;
-}
-
-.font-title {
-  font-family: var(--font-title);
-}
-
-.back {
-  position: fixed;
-  top: 60px;
-  padding: 10px 0;
-  background: transparent;
-  z-index: 5;
-}
-
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 40;
-}
-
-.nav-menu {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #ffffff;
-  transform: translateX(-120%);
-  transition: all 0.5s;
-  transition-timing-function: cubic-bezier(0.82, 0.01, 0.77, 0.78);
-}
-.nav-menu-slice {
-  position: absolute;
-  top: 0;
-  right: -48px;
-  height: 100%;
-  z-index: 300;
-}
-.nav-menu-items {
-  padding: 20px;
-  transform: skewY(-10deg);
-  color: #0e172a;
-}
-.nav-menu-items a {
-  color: #0e172a;
-  font-size: 70px;
-  transition: all 0.3s ease-in-out;
-}
-.nav-menu-items a:hover {
-  color: #f24348;
-}
-.nav-shadow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #0e172a;
-  opacity: 0;
-  transition: all 0.3s ease-in;
-}
-
-@media (min-width: 640px) {
-  .nav-menu {
-    width: 50%;
-  }
-}
-
-.isOpen.nav {
-  pointer-events: all;
-}
-.isOpen .nav-shadow {
-  opacity: 0.4;
-}
-.isOpen .nav-menu {
-  transform: translateX(0);
-}
-
-.html-video {
-  height: 100%;
-  object-fit: cover;
-  width: 100%;
-  opacity: 0.1;
-  z-index: -1;
-}
-
-.icon {
-  display: inline;
-  width: 55px;
-  height: 30px;
-  margin: 0 auto;
-  fill: currentColor;
 }
 
 .wp-block-quote {
@@ -169,93 +150,3 @@ html {
 .wp-block-quote:where(.is-style-plain) {
   border: none;
 }
-
-/*.swiper {
-  width: 100%;
-  height: 100vh;
-}
-
-.swiper-slide {
-  font-size: 18px;
-  color: #fff;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 40px 60px;
-}
-
-.swiper-pagination {
-  bottom: 60px !important;
-}
-@media (min-width: 640px) {
-  .swiper-pagination {
-    right: 150px !important;
-    left: auto !important;
-    width: auto !important;
-  }
-}
-
-.swiper-pagination-bullet {
-  width: 30px !important;
-  height: 10px !important;
-  border-radius: 10px !important;
-}
-
-.swiper-pagination-bullet-active {
-  background: #fff !important;
-}
-
-.autoplay-progress {
-  position: absolute;
-  right: 50px;
-  bottom: 50px;
-  z-index: 10;
-  width: 48px;
-  height: 48px;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: #ffffff;
-}
-
-.autoplay-progress svg {
-  --progress: 0;
-  position: absolute;
-  left: 0;
-  top: 0px;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-  stroke-width: 4px;
-  stroke: #ffffff;
-  fill: none;
-  stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
-  stroke-dasharray: 125.6;
-  transform: rotate(-90deg);
-}
-
-.parallax-bg {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 130%;
-  height: 100%;
-  -webkit-background-size: cover;
-  background-size: cover;
-  background-position: center;
-}
-
-.swiper-slide .title {
-  font-size: 41px;
-  font-weight: 300;
-}
-
-.swiper-slide .subtitle {
-  font-size: 21px;
-}
-
-.swiper-slide .text {
-  font-size: 14px;
-  max-width: 400px;
-  line-height: 1.3;
-}
-*/

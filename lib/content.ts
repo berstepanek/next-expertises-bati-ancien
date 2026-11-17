@@ -1,5 +1,3 @@
-import type { IconName } from "@/components/ui/icon";
-
 /* Contenu statique de la landing « Expertises Bâti Ancien ».
  * Les valeurs entre crochets [ … ] sont des placeholders à compléter. */
 
@@ -36,63 +34,6 @@ export const keyFigures = [
   { value: "[XXX]+", label: "expertises réalisées" },
   { value: "[X] jours", label: "délai moyen de remise du rapport" },
   { value: "[Zone]", label: "départements couverts" },
-];
-
-export const steps = [
-  {
-    title: "Premier échange",
-    text: "Vous décrivez la situation par téléphone ou via le formulaire, photos à l'appui. Gratuit et sans engagement.",
-  },
-  {
-    title: "Devis & rendez-vous",
-    text: "Vous recevez un devis forfaitaire précis. Une fois validé, la visite est fixée à votre convenance.",
-  },
-  {
-    title: "Visite sur place",
-    text: "Observation, relevés et mesures (humidité, fissuromètre…). L'expert vous explique ses premières constatations sur place.",
-  },
-  {
-    title: "Rapport écrit",
-    text: "Sous [X] jours, un rapport illustré : causes, niveau d'urgence et préconisations hiérarchisées. Questions de suivi incluses.",
-  },
-];
-
-export const expertAssets: { icon: IconName; title: string; text: string }[] = [
-  {
-    icon: "shield",
-    title: "Indépendant",
-    text: "Ne vend ni travaux ni produits",
-  },
-  {
-    icon: "award",
-    title: "[Qualification]",
-    text: "[Diplôme ou certification]",
-  },
-  {
-    icon: "doc",
-    title: "Assuré RC Pro",
-    text: "[Compagnie / n° de contrat]",
-  },
-  { icon: "chat", title: "Pédagogue", text: "Des explications sans jargon" },
-];
-
-export const reportItems = [
-  {
-    title: "Constat illustré",
-    text: "Photos annotées et relevés de chaque désordre observé",
-  },
-  {
-    title: "Causes expliquées",
-    text: "L'origine probable de chaque problème, en termes simples",
-  },
-  {
-    title: "Niveau d'urgence",
-    text: "Ce qui doit être traité maintenant, ce qui peut attendre",
-  },
-  {
-    title: "Préconisations adaptées",
-    text: "Solutions compatibles avec le bâti ancien, à remettre aux artisans",
-  },
 ];
 
 export const testimonials = Array.from({ length: 3 }, () => ({

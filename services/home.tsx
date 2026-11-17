@@ -1,4 +1,6 @@
+import { cache } from "react";
 import { fetchGraphQL } from "../lib/graphql-client";
+import type { ExpertiseImage } from "./expertise";
 
 /** Section « Situations » de la home (groupe SCF `home` de la page d'accueil). */
 export type HomeSituations = {
@@ -12,42 +14,231 @@ export type HomeSituations = {
   labels: string[];
 };
 
-type RawHomeSituations = {
-  titre: string | null;
+/** Ligne de répéteur titre + description (method_labels, rapport_labels). */
+export type HomeItem = {
+  /** SCF « Titre » (*_labels_title) */
+  title: string;
+  /** SCF « Description » (*_labels_description) */
   description: string | null;
-  baseline: string | null;
-  libelle: { libelle: string | null }[] | null;
 };
 
-const HOME_SITUATIONS_QUERY = `
-  query HomeSituations {
+/** Section « Méthode » de la home (groupe SCF `home` de la page d'accueil). */
+export type HomeMethod = {
+  /** SCF « Titre » (method_title) */
+  title: string | null;
+  /** SCF « Description » (method_description) */
+  description: string | null;
+  /** SCF « Baseline » (method_baseline) */
+  baseline: string | null;
+  /** SCF « Libellés » (method_labels) */
+  steps: HomeItem[];
+};
+
+/** Section « Rapport » de la home (groupe SCF `home` de la page d'accueil). */
+export type HomeReport = {
+  /** SCF « Titre » (rapport_title) */
+  title: string | null;
+  /** SCF « Description » (rapport_description) */
+  description: string | null;
+  /** SCF « Baseline » (rapport_baseline) */
+  baseline: string | null;
+  /** SCF « Libellés » (rapport_labels) */
+  items: HomeItem[];
+};
+
+/** Section « Votre interlocuteur » de la home (groupe SCF `home` de la page d'accueil). */
+export type HomeExpert = {
+  /** SCF « Photo » (interlocutor_photo) */
+  photo: ExpertiseImage | null;
+  /** SCF « Titre » (interlocutor_title) */
+  title: string | null;
+  /** SCF « Description » (interlocutor_description) */
+  description: string | null;
+  /** SCF « Baseline » (interlocutor_baseline) */
+  baseline: string | null;
+  /** SCF « Libellés » (interlocutor_labels) */
+  items: HomeItem[];
+};
+
+type RawImage = {
+  node: {
+    sourceUrl: string | null;
+    altText: string | null;
+    mediaDetails: { width: number | null; height: number | null } | null;
+  } | null;
+} | null;
+
+type RawHome = {
+  situationsTitre: string | null;
+  situationsDescription: string | null;
+  situationsBaseline: string | null;
+  situationsLabels: { situationsLabelsLabel: string | null }[] | null;
+  methodTitle: string | null;
+  methodDescription: string | null;
+  methodBaseline: string | null;
+  methodLabels:
+    | {
+        methodLabelsTitle: string | null;
+        methodLabelsDescription: string | null;
+      }[]
+    | null;
+  rapportTitle: string | null;
+  rapportDescription: string | null;
+  rapportBaseline: string | null;
+  rapportLabels:
+    | {
+        rapportLabelsTitle: string | null;
+        rapportLabelsDescription: string | null;
+      }[]
+    | null;
+  interlocutorPhoto: RawImage;
+  interlocutorTitle: string | null;
+  interlocutorDescription: string | null;
+  interlocutorBaseline: string | null;
+  interlocutorLabels:
+    | {
+        interlocutorLabelsTitle: string | null;
+        interlocutorLabelsDescription: string | null;
+      }[]
+    | null;
+};
+
+const HOME_QUERY = `
+  query Home {
     pageBy(uri: "/") {
       home {
-        titre
-        description
-        baseline
-        libelle {
-          libelle
+        situationsTitre
+        situationsDescription
+        situationsBaseline
+        situationsLabels {
+          situationsLabelsLabel
+        }
+        methodTitle
+        methodDescription
+        methodBaseline
+        methodLabels {
+          methodLabelsTitle
+          methodLabelsDescription
+        }
+        rapportTitle
+        rapportDescription
+        rapportBaseline
+        rapportLabels {
+          rapportLabelsTitle
+          rapportLabelsDescription
+        }
+        interlocutorPhoto {
+          node {
+            sourceUrl
+            altText
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+        interlocutorTitle
+        interlocutorDescription
+        interlocutorBaseline
+        interlocutorLabels {
+          interlocutorLabelsTitle
+          interlocutorLabelsDescription
         }
       }
     }
   }
 `;
 
-export async function getHomeSituations(): Promise<HomeSituations | null> {
-  const data = await fetchGraphQL<{
-    pageBy: { home: RawHomeSituations | null } | null;
-  }>(HOME_SITUATIONS_QUERY);
+const clean = (value: string | null | undefined) => value?.trim() || null;
 
-  const home = data.pageBy?.home;
+/** Nettoie les lignes d'un répéteur titre/description, en ignorant celles sans titre. */
+function toItems<T>(
+  rows: T[] | null,
+  pick: (row: T) => [string | null, string | null],
+): HomeItem[] {
+  return (rows ?? []).flatMap((row) => {
+    const [rawTitle, rawDescription] = pick(row);
+    const title = clean(rawTitle);
+    return title ? [{ title, description: clean(rawDescription) }] : [];
+  });
+}
+
+function toImage(raw: RawImage): ExpertiseImage | null {
+  const media = raw?.node;
+  if (!media?.sourceUrl) return null;
+  return {
+    sourceUrl: media.sourceUrl,
+    altText: clean(media.altText),
+    width: media.mediaDetails?.width ?? null,
+    height: media.mediaDetails?.height ?? null,
+  };
+}
+
+/** Un seul appel GraphQL par rendu, partagé entre les sections de la home. */
+const getHome = cache(async (): Promise<RawHome | null> => {
+  const data = await fetchGraphQL<{
+    pageBy: { home: RawHome | null } | null;
+  }>(HOME_QUERY);
+
+  return data.pageBy?.home ?? null;
+});
+
+export async function getHomeSituations(): Promise<HomeSituations | null> {
+  const home = await getHome();
   if (!home) return null;
 
   return {
-    title: home.titre?.trim() || null,
-    description: home.description?.trim() || null,
-    baseline: home.baseline?.trim() || null,
-    labels: (home.libelle ?? [])
-      .map((row) => row.libelle?.trim())
+    title: clean(home.situationsTitre),
+    description: clean(home.situationsDescription),
+    baseline: clean(home.situationsBaseline),
+    labels: (home.situationsLabels ?? [])
+      .map((row) => clean(row.situationsLabelsLabel))
       .filter((label): label is string => !!label),
+  };
+}
+
+export async function getHomeMethod(): Promise<HomeMethod | null> {
+  const home = await getHome();
+  if (!home) return null;
+
+  return {
+    title: clean(home.methodTitle),
+    description: clean(home.methodDescription),
+    baseline: clean(home.methodBaseline),
+    steps: toItems(home.methodLabels, (row) => [
+      row.methodLabelsTitle,
+      row.methodLabelsDescription,
+    ]),
+  };
+}
+
+export async function getHomeReport(): Promise<HomeReport | null> {
+  const home = await getHome();
+  if (!home) return null;
+
+  return {
+    title: clean(home.rapportTitle),
+    description: clean(home.rapportDescription),
+    baseline: clean(home.rapportBaseline),
+    items: toItems(home.rapportLabels, (row) => [
+      row.rapportLabelsTitle,
+      row.rapportLabelsDescription,
+    ]),
+  };
+}
+
+export async function getHomeExpert(): Promise<HomeExpert | null> {
+  const home = await getHome();
+  if (!home) return null;
+
+  return {
+    photo: toImage(home.interlocutorPhoto),
+    title: clean(home.interlocutorTitle),
+    description: clean(home.interlocutorDescription),
+    baseline: clean(home.interlocutorBaseline),
+    items: toItems(home.interlocutorLabels, (row) => [
+      row.interlocutorLabelsTitle,
+      row.interlocutorLabelsDescription,
+    ]),
   };
 }

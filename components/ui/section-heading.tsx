@@ -10,9 +10,10 @@ export default function SectionHeading({
   introClassName = "text-lg text-muted",
   className = "",
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
-  accent: string;
+  /** Fin du titre en serif italique (optionnelle) */
+  accent?: string;
   intro?: React.ReactNode;
   align?: "left" | "center";
   /** Fond sombre : eyebrow et accent en sage */
@@ -26,9 +27,15 @@ export default function SectionHeading({
 
   return (
     <div className={`flex flex-col gap-3.5 ${alignClass} ${className}`}>
-      <span className={`eyebrow ${accentColor}`}>{eyebrow}</span>
+      {eyebrow && <span className={`eyebrow ${accentColor}`}>{eyebrow}</span>}
       <h2 className={`h2 ${titleClassName}`}>
-        {title} <span className={`serif-accent ${accentColor}`}>{accent}</span>
+        {title}
+        {accent && (
+          <>
+            {" "}
+            <span className={`serif-accent ${accentColor}`}>{accent}</span>
+          </>
+        )}
       </h2>
       {intro && <p className={`m-0 ${introClassName}`}>{intro}</p>}
     </div>

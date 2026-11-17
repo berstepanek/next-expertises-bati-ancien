@@ -38,15 +38,6 @@ export const keyFigures = [
   { value: "[Zone]", label: "départements couverts" },
 ];
 
-export const situations = [
-  "Une fissure apparaît ou s'agrandit",
-  "Les murs sont humides, l'enduit cloque",
-  "Vous allez acheter une maison ancienne",
-  "Vous préparez une rénovation importante",
-  "Des devis d'entreprises se contredisent",
-  "Un désordre est apparu après travaux",
-];
-
 export const steps = [
   {
     title: "Premier échange",

@@ -31,68 +31,6 @@ export const heroBullets = [
   "Aucun lien avec les entreprises de travaux",
 ];
 
-export type Pillar = {
-  number: string;
-  icon: IconName;
-  headerClassName: string;
-  title: string;
-  intro: string;
-  points: string[];
-  audience: string;
-  cta: string;
-};
-
-export const pillars: Pillar[] = [
-  {
-    number: "01",
-    icon: "crack",
-    headerClassName: "bg-forest",
-    title: "Diagnostic des désordres",
-    intro:
-      "Comprendre l'origine d'un problème avant d'engager le moindre travaux.",
-    points: [
-      "Fissures, affaissements, déformations",
-      "Humidité, salpêtre, enduits qui cloquent",
-      "Charpente, bois et toiture",
-      "Pierre, pisé, pan de bois, chaux",
-    ],
-    audience:
-      "propriétaires inquiets d'un désordre ou préparant une rénovation.",
-    cta: "Faire diagnostiquer ma maison",
-  },
-  {
-    number: "02",
-    icon: "house-search",
-    headerClassName: "bg-forest-700",
-    title: "Expertise avant achat",
-    intro:
-      "Acheter une maison ancienne en sachant exactement ce que vous achetez.",
-    points: [
-      "Visite du bien à vos côtés, avant signature",
-      "Points de vigilance et risques cachés",
-      "Ordre de grandeur des travaux à prévoir",
-      "Arguments pour négocier le prix",
-    ],
-    audience: "acquéreurs d'une maison ou d'un bâtiment ancien.",
-    cta: "Préparer mon achat",
-  },
-  {
-    number: "03",
-    icon: "scales",
-    headerClassName: "bg-forest-600",
-    title: "Litiges & assistance",
-    intro: "Un avis technique indépendant pour faire valoir vos droits.",
-    points: [
-      "Malfaçons après travaux",
-      "Désaccord avec une entreprise ou un voisin",
-      "Sinistres et échanges avec l'assurance",
-      "Accompagnement en expertise amiable",
-    ],
-    audience: "particuliers en désaccord ou victimes d'un sinistre.",
-    cta: "Être accompagné",
-  },
-];
-
 export const keyFigures = [
   { value: "[XX] ans", label: "d'expérience du bâti ancien" },
   { value: "[XXX]+", label: "expertises réalisées" },

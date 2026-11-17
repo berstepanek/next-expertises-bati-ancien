@@ -1,14 +1,18 @@
-import { pillars } from "@/lib/content";
+import { getAllExpertises } from "@/services/expertise";
 import SectionHeading from "@/components/ui/section-heading";
-import PillarCard from "./pillar-card";
+import ExpertiseCard from "@/components/expertise/expertise-card";
 
-export default function Pillars() {
+export default async function Pillars() {
+  const expertises = await getAllExpertises();
+
+  if (expertises.length === 0) return null;
+
   return (
     <section id="expertises" className="scroll-mt-4 border-b border-line bg-white">
       <div className="container pt-24 pb-[104px]">
         <SectionHeading
-          eyebrow="Nos 3 piliers d'intervention"
-          title="Trois façons de vous aider,"
+          eyebrow="Nos piliers d'intervention"
+          title="Des solutions pour chaque situation,"
           accent="une même exigence"
           intro="Quelle que soit votre situation, l'expertise part des matériaux et de l'histoire de votre maison, avec un rapport clair à la clé."
           align="center"
@@ -17,13 +21,13 @@ export default function Pillars() {
           className="mb-14"
         />
 
-        <div className="row g-6">
-          {pillars.map((pillar) => (
-            <div key={pillar.number} className="col-12 md:col-6 lg:col-4 flex">
-              <PillarCard pillar={pillar} />
-            </div>
+        <ul className="row g-6 m-0 list-none p-0">
+          {expertises.map((expertise, i) => (
+            <li key={expertise.id} className="col-12 md:col-6 lg:col-4 flex">
+              <ExpertiseCard expertise={expertise} index={i} headingLevel="h3" />
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

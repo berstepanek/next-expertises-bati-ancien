@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { pillars, site } from "@/lib/content";
+import { site } from "@/lib/content";
+import { getAllExpertises, type Expertise } from "@/services/expertise";
 
 const infoLinks = [
   { label: "Méthode", href: "/#methode" },
@@ -10,7 +11,20 @@ const infoLinks = [
 
 const linkClass = "text-on-dark-muted no-underline hover:text-white";
 
-export default function Footer() {
+/* Le footer est rendu sur toutes les pages : une erreur WordPress
+ * ne doit pas casser le site, on masque simplement la liste. */
+async function getFooterExpertises(): Promise<Expertise[]> {
+  try {
+    return await getAllExpertises();
+  } catch (error) {
+    console.error("Footer : impossible de charger les expertises", error);
+    return [];
+  }
+}
+
+export default async function Footer() {
+  const expertises = await getFooterExpertises();
+
   return (
     <footer className="on-dark bg-ink text-on-dark-muted">
       <div className="container flex flex-col gap-10 pt-14 pb-8">
@@ -24,17 +38,25 @@ export default function Footer() {
               </span>
             </div>
           </div>
-          <nav
-            aria-label="Expertises"
-            className="col-6 md:col-3 lg:offset-1 flex flex-col gap-2.5 text-[15px]"
-          >
-            <span className="font-bold text-paper">Expertises</span>
-            {pillars.map((p) => (
-              <Link key={p.number} href="/#expertises" className={linkClass}>
-                {p.title}
+          {expertises.length > 0 && (
+            <nav
+              aria-label="Expertises"
+              className="col-6 md:col-3 lg:offset-1 flex flex-col gap-2.5 text-[15px]"
+            >
+              <Link href="/expertises" className="font-bold text-paper no-underline hover:text-white">
+                Expertises
               </Link>
-            ))}
-          </nav>
+              {expertises.map((expertise) => (
+                <Link
+                  key={expertise.id}
+                  href={`/expertises/${expertise.slug}`}
+                  className={linkClass}
+                >
+                  {expertise.name || expertise.title}
+                </Link>
+              ))}
+            </nav>
+          )}
           <nav
             aria-label="Informations"
             className="col-6 md:col-3 flex flex-col gap-2.5 text-[15px]"

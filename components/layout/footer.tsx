@@ -5,7 +5,7 @@ const infoLinks = [
   { label: "Méthode", href: "/#methode" },
   { label: "L'expert", href: "/#expert" },
   { label: "FAQ", href: "/#faq" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const linkClass = "text-on-dark-muted no-underline hover:text-white";

@@ -43,7 +43,7 @@ export default function Header() {
             <Icon name="phone" strokeWidth={1.8} />
             {site.phone.label}
           </a>
-          <ButtonLink href="/#contact" variant="sage" size="md">
+          <ButtonLink href="/contact" variant="sage" size="md">
             Demander une expertise
           </ButtonLink>
         </div>

@@ -24,9 +24,9 @@ export default async function Faq() {
             intro={
               <>
                 Une autre question ?{" "}
-                <a href="#contact" className="underline">
+                <Link href="/contact" className="underline">
                   Écrivez-nous
-                </a>
+                </Link>
                 , nous répondons sous 48 h.
               </>
             }

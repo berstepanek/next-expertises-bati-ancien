@@ -53,7 +53,7 @@ export default async function FaqPage() {
 
               <p className="m-0 mt-8 text-[17px] text-muted">
                 Une autre question ?{" "}
-                <Link href="/#contact" className="underline">
+                <Link href="/contact" className="underline">
                   Écrivez-nous
                 </Link>
                 , nous répondons sous 48 h.

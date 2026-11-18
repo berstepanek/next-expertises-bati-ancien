@@ -39,7 +39,7 @@ export default async function Hero() {
               </p>
             )}
             <div className="flex flex-wrap gap-3">
-              <ButtonLink href="#contact" withArrow>
+              <ButtonLink href="/contact" withArrow>
                 Demander une expertise
               </ButtonLink>
               <ButtonLink href="#methode" variant="outline-light">

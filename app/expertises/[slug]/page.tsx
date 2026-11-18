@@ -120,7 +120,7 @@ export default async function ExpertisePage({ params }: Props) {
                   visite.
                 </p>
                 <ButtonLink
-                  href="/#contact"
+                  href="/contact"
                   variant="outline-forest"
                   withArrow
                   className="min-h-[50px] gap-2 px-5"

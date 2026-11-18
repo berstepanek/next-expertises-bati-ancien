@@ -20,14 +20,14 @@ export const mainNav: NavItem[] = [
   { label: "Méthode", href: "#methode" },
   { label: "L'expert", href: "#expert" },
   { label: "Questions", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const keyFigures = [
-  { value: "[XX] ans", label: "d'expérience du bâti ancien" },
-  { value: "[XXX]+", label: "expertises réalisées" },
-  { value: "[X] jours", label: "délai moyen de remise du rapport" },
-  { value: "[Zone]", label: "départements couverts" },
+  { value: "20 ans", label: "d'expérience du bâti ancien" },
+  { value: "+200", label: "expertises réalisées" },
+  { value: "10 jours", label: "délai moyen de remise du rapport" },
+  { value: "Zone d'expertise", label: "Sur tout le territoire français" },
 ];
 
 export const requestTypes = [

@@ -23,7 +23,7 @@ export default async function Situations() {
               introClassName="text-lg text-on-dark-muted"
               className="gap-[18px]"
             />
-            <ButtonLink href="#contact" size="md" className="mt-2 min-h-12 self-start px-[22px]">
+            <ButtonLink href="/contact" size="md" className="mt-2 min-h-12 self-start px-[22px]">
               Décrire ma situation
             </ButtonLink>
           </div>

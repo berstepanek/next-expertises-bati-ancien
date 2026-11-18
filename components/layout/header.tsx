@@ -3,10 +3,11 @@ import { mainNav, site } from "@/lib/content";
 import Icon from "@/components/ui/icon";
 import ButtonLink from "@/components/ui/button-link";
 import Menu from "./menu";
+import HeaderShell from "./header-shell";
 
 export default function Header() {
   return (
-    <header className="on-dark absolute inset-x-0 top-0 z-10 border-b border-white/20 text-white">
+    <HeaderShell>
       <div className="container flex flex-wrap items-center justify-between gap-6 py-4">
         <Link
           href="/#top"
@@ -48,6 +49,6 @@ export default function Header() {
           </ButtonLink>
         </div>
       </div>
-    </header>
+    </HeaderShell>
   );
 }

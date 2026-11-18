@@ -39,18 +39,16 @@ export default async function Page({ params }: Props) {
 
   return (
     <article className="py-24">
-      <div className="flex justify-center">
-        <div className="w-full max-w-screen-md">
-          <h1
-            className="text-3xl font-bold"
-            dangerouslySetInnerHTML={{ __html: page.title }}
-          />
+      <div className="container">
+        <h1
+          className="text-3xl font-bold"
+          dangerouslySetInnerHTML={{ __html: page.title }}
+        />
 
-          <div
-            className="mt-8 prose"
-            dangerouslySetInnerHTML={{ __html: page.content }}
-          />
-        </div>
+        <div
+          className="cms-content mt-8 prose"
+          dangerouslySetInnerHTML={{ __html: page.content }}
+        />
       </div>
     </article>
   );

@@ -119,7 +119,7 @@ export default async function ExpertisePage({ params }: Props) {
             <div className="col-12 ">
               {expertise.content ? (
                 <div
-                  className="flex flex-col gap-5 text-lg text-muted-dark [&_h2]:m-0 [&_h2]:mt-4 [&_h2]:text-[28px] [&_h2]:font-semibold [&_h2]:text-ink [&_h3]:m-0 [&_h3]:mt-2 [&_h3]:text-[22px] [&_h3]:font-semibold [&_h3]:text-ink [&_p]:m-0 [&_ul]:m-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:m-0 [&_ol]:list-decimal [&_ol]:pl-6 [&_a]:text-forest [&_a]:underline"
+                  className="cms-content flex flex-col gap-5 text-lg text-muted-dark [&_h2]:m-0 [&_h2]:mt-4 [&_h2]:text-[28px] [&_h2]:font-semibold [&_h2]:text-ink [&_h3]:m-0 [&_h3]:mt-2 [&_h3]:text-[22px] [&_h3]:font-semibold [&_h3]:text-ink [&_p]:m-0 [&_ul]:m-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:m-0 [&_ol]:list-decimal [&_ol]:pl-6 [&_a]:text-forest [&_a]:underline"
                   dangerouslySetInnerHTML={{ __html: expertise.content }}
                 />
               ) : (

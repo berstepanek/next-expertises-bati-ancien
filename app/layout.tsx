@@ -31,7 +31,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Styles globaux WordPress, scopés à #cms-container (pages issues du CMS)
+  // Styles globaux WordPress, scopés à .cms-content (contenu HTML issu du CMS)
   const globalCss = await getGlobalStylesheet();
 
   return (

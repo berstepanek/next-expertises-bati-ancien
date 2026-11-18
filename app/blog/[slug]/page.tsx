@@ -25,6 +25,7 @@ export default async function PostPage({ params }: Props) {
       <h1 dangerouslySetInnerHTML={{ __html: post.title }} />
 
       <div
+        className="cms-content"
         style={{ marginTop: "2rem" }}
         dangerouslySetInnerHTML={{ __html: post.content }}
       />

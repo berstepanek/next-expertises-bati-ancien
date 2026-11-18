@@ -32,7 +32,7 @@ export default async function FaqPage() {
       <section>
         <div className="container py-24">
           <div className="row justify-center">
-            <div className="col-12 lg:col-8 flex flex-col gap-3">
+            <div className="col-12 flex flex-col gap-3">
               {faqs.length === 0 ? (
                 <p className="m-0 text-lg text-muted">
                   Aucune question n&apos;est disponible pour le moment.

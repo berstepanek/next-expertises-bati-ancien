@@ -3,8 +3,6 @@ import { site } from "@/lib/content";
 import { getAllExpertises, type Expertise } from "@/services/expertise";
 
 const infoLinks = [
-  { label: "Méthode", href: "/#methode" },
-  { label: "L'expert", href: "/#expert" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ];
@@ -43,7 +41,10 @@ export default async function Footer() {
               aria-label="Expertises"
               className="col-6 md:col-3 lg:offset-1 flex flex-col gap-2.5 text-[15px]"
             >
-              <Link href="/expertises" className="font-bold text-paper no-underline hover:text-white">
+              <Link
+                href="/expertises"
+                className="font-bold text-paper no-underline hover:text-white"
+              >
                 Expertises
               </Link>
               {expertises.map((expertise) => (
@@ -76,11 +77,11 @@ export default async function Footer() {
           </span>
           <span className="flex gap-5">
             {/* TODO : créer les pages /mentions-legales et /confidentialite */}
-            <Link href="/mentions-legales" className="text-on-dark-muted hover:text-white">
-              Mentions légales
-            </Link>
-            <Link href="/confidentialite" className="text-on-dark-muted hover:text-white">
-              Confidentialité
+            <Link
+              href="/politique-de-confidentialite"
+              className="text-on-dark-muted hover:text-white"
+            >
+              Politique de confidentialite
             </Link>
           </span>
         </div>

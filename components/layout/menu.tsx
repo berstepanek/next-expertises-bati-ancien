@@ -6,7 +6,7 @@ export default async function Menu() {
   const items = await getPrimaryMenu();
 
   return (
-    <ul className="flex gap-x-2">
+    <ul className="flex gap-x-4">
       {items.map((item: any) => (
         <li key={item.id}>
           <Link

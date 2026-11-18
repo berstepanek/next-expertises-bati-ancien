@@ -57,7 +57,7 @@ export default function ExpertiseCard({
       </div>
       <div className="flex grow flex-col gap-5 p-7">
         {expertise.strengths.length > 0 && (
-          <CheckList items={expertise.strengths} />
+          <CheckList items={expertise.strengths} classCss="text-forest" />
         )}
         {expertise.target && (
           <p className="m-0 rounded-[14px] bg-paper px-4 py-3.5 text-[15px] text-muted-dark">

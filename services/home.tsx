@@ -2,6 +2,20 @@ import { cache } from "react";
 import { fetchGraphQL } from "../lib/graphql-client";
 import type { ExpertiseImage } from "./expertise";
 
+/** Section « Hero » de la home (groupe SCF `home` de la page d'accueil). */
+export type HomeHero = {
+  /** SCF « Titre » (hero_title) */
+  title: string | null;
+  /** SCF « Sous titre » (hero_subtitle) */
+  subtitle: string | null;
+  /** SCF « Description » (hero_description) */
+  description: string | null;
+  /** SCF « Image de fond » (hero_screenshot) */
+  image: ExpertiseImage | null;
+  /** SCF « Libellés » (hero_labels) */
+  labels: string[];
+};
+
 /** Section « Situations » de la home (groupe SCF `home` de la page d'accueil). */
 export type HomeSituations = {
   /** SCF « Titre » (situations_title) */
@@ -60,6 +74,24 @@ export type HomeExpert = {
   items: HomeItem[];
 };
 
+/** Avis client (ligne du répéteur testimony_item). */
+export type HomeTestimony = {
+  /** SCF « Nom » (testimony_item_name) */
+  name: string | null;
+  /** SCF « Description » (testimony_item_description) */
+  description: string;
+};
+
+/** Section « Témoignages » de la home (groupe SCF `home` de la page d'accueil). */
+export type HomeTestimonials = {
+  /** SCF « Titre » (testimony_title) */
+  title: string | null;
+  /** SCF « Baseline » (testimony_baseline) */
+  baseline: string | null;
+  /** SCF « Avis » (testimony_item) */
+  items: HomeTestimony[];
+};
+
 type RawImage = {
   node: {
     sourceUrl: string | null;
@@ -69,6 +101,11 @@ type RawImage = {
 } | null;
 
 type RawHome = {
+  heroTitle: string | null;
+  heroSubtitle: string | null;
+  heroDescription: string | null;
+  heroScreenshot: RawImage;
+  heroLabels: { heroLabelsText: string | null }[] | null;
   situationsTitre: string | null;
   situationsDescription: string | null;
   situationsBaseline: string | null;
@@ -101,12 +138,37 @@ type RawHome = {
         interlocutorLabelsDescription: string | null;
       }[]
     | null;
+  testimonyTitle: string | null;
+  testimonyBaseline: string | null;
+  testimonyItem:
+    | {
+        testimonyItemDescription: string | null;
+        /** graphql_field_name SCF : « testimonyitemName » (i minuscule) */
+        testimonyitemName: string | null;
+      }[]
+    | null;
 };
 
 const HOME_QUERY = `
   query Home {
     pageBy(uri: "/") {
       home {
+        heroTitle
+        heroSubtitle
+        heroDescription
+        heroScreenshot {
+          node {
+            sourceUrl
+            altText
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+        heroLabels {
+          heroLabelsText
+        }
         situationsTitre
         situationsDescription
         situationsBaseline
@@ -143,6 +205,12 @@ const HOME_QUERY = `
         interlocutorLabels {
           interlocutorLabelsTitle
           interlocutorLabelsDescription
+        }
+        testimonyTitle
+        testimonyBaseline
+        testimonyItem {
+          testimonyItemDescription
+          testimonyitemName
         }
       }
     }
@@ -182,6 +250,21 @@ const getHome = cache(async (): Promise<RawHome | null> => {
 
   return data.pageBy?.home ?? null;
 });
+
+export async function getHomeHero(): Promise<HomeHero | null> {
+  const home = await getHome();
+  if (!home) return null;
+
+  return {
+    title: clean(home.heroTitle),
+    subtitle: clean(home.heroSubtitle),
+    description: clean(home.heroDescription),
+    image: toImage(home.heroScreenshot),
+    labels: (home.heroLabels ?? [])
+      .map((row) => clean(row.heroLabelsText))
+      .filter((label): label is string => !!label),
+  };
+}
 
 export async function getHomeSituations(): Promise<HomeSituations | null> {
   const home = await getHome();
@@ -240,5 +323,21 @@ export async function getHomeExpert(): Promise<HomeExpert | null> {
       row.interlocutorLabelsTitle,
       row.interlocutorLabelsDescription,
     ]),
+  };
+}
+
+export async function getHomeTestimonials(): Promise<HomeTestimonials | null> {
+  const home = await getHome();
+  if (!home) return null;
+
+  return {
+    title: clean(home.testimonyTitle),
+    baseline: clean(home.testimonyBaseline),
+    items: (home.testimonyItem ?? []).flatMap((row) => {
+      const description = clean(row.testimonyItemDescription);
+      return description
+        ? [{ description, name: clean(row.testimonyitemName) }]
+        : [];
+    }),
   };
 }

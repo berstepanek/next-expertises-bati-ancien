@@ -41,12 +41,17 @@ export default function Contact({
           <div className="col-12 lg:col-5 flex flex-col gap-5">
             <h2 className="h2 text-[clamp(32px,4vw,46px)]">{title}</h2>
             <p className="m-0 text-lg text-on-dark-muted">{intro}</p>
+          </div>
+          <div className="col-12 lg:col-7">
             <div className="mt-2 flex flex-col gap-3.5 text-lg font-semibold">
               <a href={site.phone.href} className={linkClass}>
                 <IconBadge name="phone" />
                 {site.phone.label}
               </a>
-              <a href={`mailto:${site.email}`} className={`${linkClass} break-all`}>
+              <a
+                href={`mailto:${site.email}`}
+                className={`${linkClass} break-all`}
+              >
                 <IconBadge name="mail" />
                 {site.email}
               </a>
@@ -55,9 +60,6 @@ export default function Contact({
                 Zone d&apos;intervention : {site.zone}
               </span>
             </div>
-          </div>
-          <div className="col-12 lg:col-7">
-            <ContactForm />
           </div>
         </div>
       </div>

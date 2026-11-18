@@ -92,8 +92,8 @@
   }
 }
 
-/* Image de fond du hero : déposer le visuel dans public/images/hero.jpg */
-.hero-bg {
+/* Dégradés posés sur l'image de fond du hero (lisibilité du texte). */
+.hero-overlay {
   background-image:
     linear-gradient(180deg, rgb(20 32 18 / 0.6) 0px, rgb(20 32 18 / 0) 220px),
     linear-gradient(
@@ -101,11 +101,7 @@
       rgb(20 32 18 / 0.88) 0%,
       rgb(20 32 18 / 0.72) 50%,
       rgb(20 32 18 / 0.35) 100%
-    ),
-    url("/images/hero.jpg");
-  background-size: cover;
-  background-position: center 40%;
-  background-repeat: no-repeat;
+    );
 }
 
 /* ---------- Héritage portfolio (routes projects / pages WordPress) ---------- */

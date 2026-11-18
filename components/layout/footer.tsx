@@ -5,7 +5,7 @@ import { getAllExpertises, type Expertise } from "@/services/expertise";
 const infoLinks = [
   { label: "Méthode", href: "/#methode" },
   { label: "L'expert", href: "/#expert" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ];
 

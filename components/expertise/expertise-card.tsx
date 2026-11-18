@@ -1,7 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Expertise } from "@/services/expertise";
 import CheckList from "@/components/ui/check-list";
+import Icon, { type IconName } from "@/components/ui/icon";
+
+/** Icônes attribuées selon la position (aucun champ SCF dédié). */
+const ICONS: IconName[] = ["crack", "house-search", "scales"];
 
 type Props = {
   expertise: Expertise;
@@ -19,41 +22,40 @@ export default function ExpertiseCard({
   const name = expertise.name || expertise.title;
 
   return (
-    <Link
-      href={`/expertises/${expertise.slug}`}
-      className="group flex w-full flex-col overflow-hidden rounded-[28px] border border-line bg-white text-ink shadow-card transition-colors hover:border-forest"
-    >
-      {expertise.image && (
-        <Image
-          src={expertise.image.sourceUrl}
-          alt={expertise.image.altText || name}
-          width={expertise.image.width ?? 600}
-          height={expertise.image.height ?? 400}
-          className="aspect-[3/2] w-full object-cover"
-        />
-      )}
-      <div className="flex grow flex-col gap-4 p-7">
-        <span
-          className="font-serif text-[40px] leading-none text-sage italic"
-          aria-hidden="true"
-        >
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <Heading className="m-0 text-[26px] leading-[1.15] font-semibold tracking-[-0.01em]">
+    <article className="flex w-full flex-col overflow-hidden rounded-[28px] border border-line bg-white shadow-card">
+      <div className="flex flex-col gap-5 bg-forest px-7 pt-7 pb-8 text-white">
+        <div className="flex items-start justify-between">
+          <span className="flex size-[60px] items-center justify-center rounded-[18px] bg-white/15">
+            <Icon
+              name={ICONS[index % ICONS.length]}
+              strokeWidth={1.7}
+              className="size-[30px] text-white"
+            />
+          </span>
+          <span
+            className="font-serif text-[56px] leading-none italic text-sage"
+            aria-hidden="true"
+          >
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        </div>
+        <Heading className="m-0 text-[30px] leading-[1.1] font-semibold tracking-[-0.01em]">
           {name}
         </Heading>
         {expertise.shortDescription ? (
-          <p className="m-0 text-base text-muted">
+          <p className="m-0 text-[17px] text-on-dark">
             {expertise.shortDescription}
           </p>
         ) : (
           expertise.excerpt && (
             <div
-              className="text-base text-muted [&_p]:m-0"
+              className="text-[17px] text-on-dark [&_p]:m-0"
               dangerouslySetInnerHTML={{ __html: expertise.excerpt }}
             />
           )
         )}
+      </div>
+      <div className="flex grow flex-col gap-5 p-7">
         {expertise.strengths.length > 0 && (
           <CheckList items={expertise.strengths} />
         )}
@@ -63,10 +65,14 @@ export default function ExpertiseCard({
             {expertise.target}
           </p>
         )}
-        <span className="mt-auto pt-2 text-[15px] font-semibold text-forest group-hover:underline">
-          Découvrir l&apos;expertise →
-        </span>
+        <Link
+          href={`/expertises/${expertise.slug}`}
+          className="btn mt-auto min-h-[50px] gap-2 border-[1.5px] border-forest text-base text-forest hover:bg-forest hover:text-white"
+        >
+          Découvrir l&apos;expertise
+          <Icon name="arrow" className="size-[18px]" />
+        </Link>
       </div>
-    </Link>
+    </article>
   );
 }

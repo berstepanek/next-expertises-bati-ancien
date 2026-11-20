@@ -69,6 +69,13 @@ export default function IconSprite() {
         <symbol id="i-chevron" viewBox="0 0 24 24">
           <path d="m6 9 6 6 6-6" />
         </symbol>
+        <symbol id="i-search" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.5-3.5" />
+        </symbol>
+        <symbol id="i-close" viewBox="0 0 24 24">
+          <path d="M18 6 6 18M6 6l12 12" />
+        </symbol>
       </defs>
     </svg>
   );

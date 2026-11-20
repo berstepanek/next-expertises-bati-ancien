@@ -4,6 +4,7 @@ import Icon from "@/components/ui/icon";
 import ButtonLink from "@/components/ui/button-link";
 import Menu from "./menu";
 import HeaderShell from "./header-shell";
+import SearchDialog from "@/components/search/search-dialog";
 
 export default function Header() {
   return (
@@ -37,6 +38,7 @@ export default function Header() {
         </nav>
 
         <div className="flex flex-wrap items-center gap-3">
+          <SearchDialog />
           <a
             href={site.phone.href}
             className="flex min-h-11 items-center gap-2 text-[15px] font-semibold text-white no-underline hover:text-sage"

@@ -10,6 +10,7 @@ const ALL_PAGES_QUERY = `
         title
         slug
         modified
+        content
       }
     }
   }

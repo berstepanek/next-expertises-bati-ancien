@@ -8,6 +8,7 @@ const ALL_PAGES_QUERY = `
         id
         title
         slug
+        modified
       }
     }
   }
@@ -20,6 +21,7 @@ const PAGE_BY_SLUG_QUERY = `
       title
       content
       slug
+      modified
     }
   }
 `;

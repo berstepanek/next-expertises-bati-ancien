@@ -1,15 +1,16 @@
 import { Metadata } from "next";
 import { getAllExpertises } from "@/services/expertise";
-import { site } from "@/lib/content";
 import SectionHeading from "@/components/ui/section-heading";
 import ExpertiseCard from "@/components/expertise/expertise-card";
+import { pageMetadata } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: `Nos expertises | ${site.name}`,
+  return pageMetadata({
+    title: "Nos expertises",
     description:
-      "Toutes les expertises proposées pour les maisons et bâtiments anciens.",
-  };
+      "Diagnostic des désordres, expertise avant achat, litiges travaux : toutes les expertises indépendantes pour les maisons et bâtiments anciens.",
+    path: "/expertises",
+  });
 }
 
 export default async function ExpertisesPage() {
@@ -20,6 +21,7 @@ export default async function ExpertisesPage() {
       <section className="on-dark bg-forest text-paper">
         <div className="container py-24">
           <SectionHeading
+            as="h1"
             eyebrow="Nos missions"
             title="Les"
             accent="expertises"

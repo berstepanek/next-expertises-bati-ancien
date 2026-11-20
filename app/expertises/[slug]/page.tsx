@@ -1,25 +1,22 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllExpertises, getExpertiseBySlug } from "@/services/expertise";
 import { site } from "@/lib/content";
 import ButtonLink from "@/components/ui/button-link";
 import CheckList from "@/components/ui/check-list";
+import JsonLd from "@/components/seo/json-ld";
+import {
+  absoluteUrl,
+  breadcrumbJsonLd,
+  ORGANIZATION_ID,
+  pageMetadata,
+  toPlainText,
+} from "@/lib/seo";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
-
-/* Retire les balises HTML de l'extrait WordPress pour la meta description. */
-function toPlainText(html: string | null) {
-  return (
-    html
-      ?.replace(/<[^>]*>/g, "")
-      .replace(/\s+/g, " ")
-      .trim() || ""
-  );
-}
 
 export async function generateStaticParams() {
   const expertises = await getAllExpertises();
@@ -31,13 +28,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const expertise = await getExpertiseBySlug(slug);
   if (!expertise) return {};
 
-  return {
-    title: `${expertise.name || expertise.title} | ${site.name}`,
+  const name = expertise.name || expertise.title;
+  return pageMetadata({
+    title: name,
     description:
       expertise.shortDescription ||
       toPlainText(expertise.excerpt) ||
-      `${expertise.title} : ${site.name}`,
-  };
+      toPlainText(expertise.content) ||
+      `${name} : expertise indépendante du bâti ancien par ${site.expertName}.`,
+    path: `/expertises/${expertise.slug}`,
+    image: expertise.image && {
+      url: expertise.image.sourceUrl,
+      width: expertise.image.width,
+      height: expertise.image.height,
+      alt: expertise.image.altText,
+    },
+  });
 }
 
 export default async function ExpertisePage({ params }: Props) {
@@ -49,9 +55,31 @@ export default async function ExpertisePage({ params }: Props) {
   }
 
   const name = expertise.name || expertise.title;
+  const path = `/expertises/${expertise.slug}`;
 
   return (
     <>
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name,
+            serviceType: name,
+            description:
+              expertise.shortDescription || toPlainText(expertise.excerpt),
+            url: absoluteUrl(path),
+            provider: { "@id": ORGANIZATION_ID },
+            areaServed: { "@type": "Country", name: site.zone },
+            ...(expertise.image && { image: expertise.image.sourceUrl }),
+          },
+          breadcrumbJsonLd([
+            { name: "Accueil", path: "/" },
+            { name: "Nos expertises", path: "/expertises" },
+            { name, path },
+          ]),
+        ]}
+      />
       <section className="on-dark bg-forest ">
         <div className="container py-24 ">
           <div className="row">

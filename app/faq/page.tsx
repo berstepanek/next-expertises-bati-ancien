@@ -1,26 +1,50 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { getAllFaqs } from "@/services/faq";
-import { site } from "@/lib/content";
 import AccordionItem from "@/components/ui/accordion-item";
 import SectionHeading from "@/components/ui/section-heading";
+import JsonLd from "@/components/seo/json-ld";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: `Questions fréquentes | ${site.name}`,
+  return pageMetadata({
+    title: "Questions fréquentes",
     description:
-      "Les réponses aux questions les plus fréquentes sur l'expertise des maisons et bâtiments anciens.",
-  };
+      "Les réponses aux questions les plus fréquentes sur l'expertise des maisons et bâtiments anciens : déroulé, délais, tarifs, rapport.",
+    path: "/faq",
+  });
 }
 
 export default async function FaqPage() {
   const faqs = await getAllFaqs();
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs
+      .filter((faq) => faq.answer)
+      .map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: { "@type": "Answer", text: faq.answer },
+      })),
+  };
+
   return (
     <>
+      <JsonLd
+        data={[
+          ...(faqJsonLd.mainEntity.length > 0 ? [faqJsonLd] : []),
+          breadcrumbJsonLd([
+            { name: "Accueil", path: "/" },
+            { name: "Questions fréquentes", path: "/faq" },
+          ]),
+        ]}
+      />
       <section className="on-dark bg-forest text-paper">
         <div className="container py-24">
           <SectionHeading
+            as="h1"
             eyebrow="Questions fréquentes"
             title="Vos questions,"
             accent="nos réponses"

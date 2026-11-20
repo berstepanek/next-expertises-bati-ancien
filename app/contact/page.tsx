@@ -3,6 +3,7 @@ import { site } from "@/lib/content";
 import SectionHeading from "@/components/ui/section-heading";
 import Icon, { type IconName } from "@/components/ui/icon";
 import ContactForm from "@/components/home/contact-form";
+import { pageMetadata } from "@/lib/seo";
 
 function IconBadge({ name }: { name: IconName }) {
   return (
@@ -25,11 +26,12 @@ type ContactProps = {
 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: `Contact | ${site.name}`,
+  return pageMetadata({
+    title: "Contact",
     description:
       "Contactez un expert indépendant en bâtiment ancien : rappel sous 48 h, premier échange gratuit et sans engagement.",
-  };
+    path: "/contact",
+  });
 }
 
 export default function ContactPage({
@@ -46,6 +48,7 @@ export default function ContactPage({
       <section className="on-dark bg-forest text-paper">
         <div className="container py-24">
           <SectionHeading
+            as="h1"
             eyebrow="Contact"
             title="Parlons de"
             accent="votre maison"

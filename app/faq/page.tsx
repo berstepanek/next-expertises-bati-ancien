@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { getAllFaqs } from "@/services/faq";
+import { getPageBySlug } from "@/services/pages";
 import AccordionItem from "@/components/ui/accordion-item";
 import SectionHeading from "@/components/ui/section-heading";
 import JsonLd from "@/components/seo/json-ld";
@@ -16,7 +17,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function FaqPage() {
-  const faqs = await getAllFaqs();
+  // Intro éditable : contenu de la page WordPress « Faq » (vide = rien affiché).
+  const [faqs, page] = await Promise.all([
+    getAllFaqs(),
+    getPageBySlug("faq").catch(() => null),
+  ]);
+  const intro: string | null = page?.content?.trim() || null;
 
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -50,6 +56,12 @@ export default async function FaqPage() {
             accent="nos réponses"
             dark
           />
+          {intro && (
+            <div
+              className="cms-content mt-3.5 flex max-w-[640px] flex-col gap-4 text-lg text-on-dark-muted [&_p]:m-0 [&_ul]:m-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:m-0 [&_ol]:list-decimal [&_ol]:pl-6 [&_a]:text-sage [&_a]:underline"
+              dangerouslySetInnerHTML={{ __html: intro }}
+            />
+          )}
         </div>
       </section>
 

@@ -13,6 +13,8 @@ export type Expertise = {
   title: string;
   slug: string;
   uri: string;
+  /** Date de dernière modification (ISO), pour le sitemap */
+  modified: string | null;
   excerpt: string | null;
   content: string | null;
   /** SCF « Nom » (expertise_name) */
@@ -56,6 +58,7 @@ const EXPERTISE_FIELDS = `
   title
   slug
   uri
+  modified
   excerpt
   content
   description {

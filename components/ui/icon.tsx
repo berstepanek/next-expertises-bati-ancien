@@ -14,7 +14,9 @@ export type IconName =
   | "doc"
   | "chat"
   | "person"
-  | "chevron";
+  | "chevron"
+  | "search"
+  | "close";
 
 /* Icône du sprite (components/ui/icon-sprite.tsx).
  * Le trait suit `currentColor` : la couleur se pilote avec text-*. */

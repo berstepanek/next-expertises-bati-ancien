@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { cache } from "react";
 import { fetchGraphQL } from "../lib/graphql-client";
 
 const ALL_PAGES_QUERY = `
@@ -8,6 +9,8 @@ const ALL_PAGES_QUERY = `
         id
         title
         slug
+        modified
+        content
       }
     }
   }
@@ -20,6 +23,7 @@ const PAGE_BY_SLUG_QUERY = `
       title
       content
       slug
+      modified
     }
   }
 `;
@@ -29,7 +33,7 @@ export async function getAllPages() {
   return data.pages.nodes;
 }
 
-export async function getPageBySlug(slug: string) {
+export const getPageBySlug = cache(async (slug: string) => {
   const data = await fetchGraphQL<{ page: any }>(PAGE_BY_SLUG_QUERY, { slug });
   return data.page;
-}
+});

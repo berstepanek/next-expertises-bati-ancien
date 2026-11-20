@@ -8,6 +8,11 @@ import Report from "@/components/home/report";
 import Testimonials from "@/components/home/testimonials";
 import Faq from "@/components/home/faq";
 import Contact from "@/components/home/contact";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (

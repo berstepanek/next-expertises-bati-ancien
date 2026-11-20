@@ -37,6 +37,12 @@ export default async function Faq() {
           {faqs.slice(0, HOME_FAQ_LIMIT).map((faq, i) => (
             <AccordionItem key={faq.id} question={faq.question} defaultOpen={i === 0}>
               {faq.answer && <p className="m-0 whitespace-pre-line">{faq.answer}</p>}
+              <Link
+                href={`/faq/${faq.slug}`}
+                className="mt-3 inline-block font-semibold text-forest underline"
+              >
+                En savoir plus
+              </Link>
             </AccordionItem>
           ))}
           {faqs.length > HOME_FAQ_LIMIT && (

@@ -7,6 +7,8 @@ import Footer from "@/components/layout/footer";
 import IconSprite from "@/components/ui/icon-sprite";
 import { site } from "@/lib/content";
 import { getGlobalStylesheet } from "@/services/global-style";
+import { organizationJsonLd, SITE_URL } from "@/lib/seo";
+import JsonLd from "@/components/seo/json-ld";
 
 const urbanist = Urbanist({
   subsets: ["latin"],
@@ -22,8 +24,28 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: `${site.name} — ${site.baseline}`,
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${site.name} — ${site.baseline}`,
+    template: `%s | ${site.name}`,
+  },
   description: site.description,
+  applicationName: site.name,
+  authors: [{ name: site.expertName }],
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    siteName: site.name,
+    url: "/",
+    title: `${site.name} — ${site.baseline}`,
+    description: site.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} — ${site.baseline}`,
+    description: site.description,
+  },
+  formatDetection: { telephone: false, email: false, address: false },
 };
 
 export default async function RootLayout({
@@ -49,6 +71,7 @@ export default async function RootLayout({
         )}
       </head>
       <body>
+        <JsonLd data={organizationJsonLd()} />
         <ViewTransitions>
           <IconSprite />
           <Header />

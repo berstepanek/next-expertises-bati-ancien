@@ -1,37 +1,46 @@
 import { getAllPages, getPageBySlug } from "@/services/pages";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { VARIABLES_WEB_SITE } from "@/lib/variables";
+import { EXCLUDED_WP_PAGES, pageMetadata, toPlainText } from "@/lib/seo";
+import { site } from "@/lib/content";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export const revalidate = 60;
 
 export async function generateStaticParams() {
   const pages = await getAllPages();
-  return pages.map((page) => ({ slug: page.slug }));
+  return pages
+    .filter((page: { slug: string }) => !EXCLUDED_WP_PAGES.has(page.slug))
+    .map((page: { slug: string }) => ({ slug: page.slug }));
+}
+
+async function getPublicPage(slug: string) {
+  if (EXCLUDED_WP_PAGES.has(slug)) return null;
+  return getPageBySlug(slug);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const page = await getPageBySlug(slug);
+  const page = await getPublicPage(slug);
 
   if (!page) {
     return {};
   }
 
-  const variables = VARIABLES_WEB_SITE;
-  return {
-    title: `${variables.name} — ${page.title}`,
-    description: `${page.title} — ${variables.name}`,
-  };
+  const title = toPlainText(page.title);
+  return pageMetadata({
+    title,
+    description: toPlainText(page.content) || `${title} — ${site.name}`,
+    path: `/${page.slug}`,
+  });
 }
 
 export default async function Page({ params }: Props) {
   const { slug } = await params;
-  const page = await getPageBySlug(slug);
+  const page = await getPublicPage(slug);
 
   if (!page) {
     notFound();

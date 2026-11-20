@@ -114,11 +114,6 @@
   font-family: var(--font-serif);
 }
 
-.swiper {
-  --swiper-navigation-color: #ffffff;
-  --swiper-navigation-size: 30px;
-}
-
 .wp-block-quote {
   border-left: 0.25em solid;
   margin: 0 0 1.75em;

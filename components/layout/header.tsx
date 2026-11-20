@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { mainNav, site } from "@/lib/content";
+import { site } from "@/lib/content";
 import Icon from "@/components/ui/icon";
 import ButtonLink from "@/components/ui/button-link";
 import Menu from "./menu";

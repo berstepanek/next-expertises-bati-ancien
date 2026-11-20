@@ -35,7 +35,10 @@ export default async function RootLayout({
   const globalCss = await getGlobalStylesheet();
 
   return (
-    <html lang="fr" className={`${urbanist.variable} ${instrumentSerif.variable}`}>
+    <html
+      lang="fr"
+      className={`${urbanist.variable} ${instrumentSerif.variable}`}
+    >
       <head>
         {globalCss && (
           <style

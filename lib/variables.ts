@@ -1,5 +1,5 @@
 export const VARIABLES_WEB_SITE = {
-  name: "Portfolio name",
-  description: "description",
-  copyRight: "portfolio copy right",
+  name: "Expertises bâti ancien",
+  description: "Expertises bâti ancien",
+  copyRight: "Expertises bâti ancien copy right",
 } as const;

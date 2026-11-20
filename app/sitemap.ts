@@ -1,14 +1,16 @@
 import type { MetadataRoute } from "next";
 import { getAllExpertises } from "@/services/expertise";
 import { getAllPages } from "@/services/pages";
+import { getAllFaqs } from "@/services/faq";
 import { absoluteUrl, EXCLUDED_WP_PAGES } from "@/lib/seo";
 
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [expertises, pages] = await Promise.all([
+  const [expertises, pages, faqs] = await Promise.all([
     getAllExpertises().catch(() => []),
     getAllPages().catch(() => []),
+    getAllFaqs().catch(() => []),
   ]);
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -25,6 +27,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
+  const faqRoutes: MetadataRoute.Sitemap = faqs.map((f) => ({
+    url: absoluteUrl(`/faq/${f.slug}`),
+    lastModified: f.modified ?? undefined,
+    changeFrequency: "yearly",
+    priority: 0.6,
+  }));
+
   const pageRoutes: MetadataRoute.Sitemap = pages
     .filter((p: { slug: string }) => !EXCLUDED_WP_PAGES.has(p.slug))
     .map((p: { slug: string; modified?: string }) => ({
@@ -34,5 +43,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.3,
     }));
 
-  return [...staticRoutes, ...expertiseRoutes, ...pageRoutes];
+  return [...staticRoutes, ...expertiseRoutes, ...faqRoutes, ...pageRoutes];
 }

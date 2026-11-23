@@ -4,6 +4,7 @@ import Icon from "@/components/ui/icon";
 import ButtonLink from "@/components/ui/button-link";
 import Menu from "./menu";
 import HeaderShell from "./header-shell";
+import MobileMenu from "./mobile-menu";
 import SearchDialog from "@/components/search/search-dialog";
 
 export default function Header() {
@@ -37,9 +38,9 @@ export default function Header() {
       </nav>
 
       <div className="flex flex-wrap items-center gap-3">
-        <button>
-          <Icon name="bar" />
-        </button>
+        <MobileMenu>
+          <Menu variant="drawer" />
+        </MobileMenu>
         <SearchDialog />
         <a
           href={site.phone.href}

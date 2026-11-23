@@ -28,10 +28,10 @@ export default function HeaderShell({
     >
       <div className="container">
         <div
-          className={`flex px-4 flex-wrap items-center justify-between gap-6 py-2 border border-white/20 rounded-full text-white transition-[background-color,border-color,box-shadow,top] duration-300 motion-reduce:transition-none   ${
+          className={`flex px-4 flex-nowrap items-center justify-between gap-6 py-2 border border-white/20 rounded-full text-white transition-[background-color,border-color,box-shadow,top] duration-300 motion-reduce:transition-none   ${
             scrolled
-              ? " bg-ink/95 shadow-[0_8px_24px_rgb(20_32_18/0.25)] backdrop-blur "
-              : " bg-transparent"
+              ? " bg-black/50 shadow-header backdrop-blur "
+              : " bg-black/10"
           }`}
         >
           {children}

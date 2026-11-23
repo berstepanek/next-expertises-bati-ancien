@@ -2,28 +2,37 @@
 @import "./grid.css";
 
 /* Design tokens — Expertises Bâti Ancien */
-@theme {
-  --color-ink: #1c2a1a; /* texte principal, footer */
-  --color-forest: #2f4b2c; /* accent principal */
-  --color-forest-700: #3e5e36;
-  --color-forest-600: #4d6e43;
-  --color-sage: #c7dcb0; /* accent clair sur fond sombre */
-  --color-sage-300: #b5cc9c;
-  --color-paper: #f4f5ef; /* fond de page */
-  --color-mist: #eef1e7; /* fond témoignages */
-  --color-line: #e1e4d8;
-  --color-line-soft: #eceee6;
-  --color-muted: #566252;
-  --color-muted-dark: #455041;
-  --color-body: #2f3a2c;
-  --color-on-dark: #e3ead9;
-  --color-on-dark-muted: #d6e0cc;
-  --color-field: #f9faf6;
-  --color-field-line: #cdd5c2;
-  --color-placeholder: #e6ecdd;
-  --color-placeholder-line: #a9b89a;
+/* Couleurs : valeurs définies dans lib/theme.ts (variables --theme-*,
+ * injectées dans <head>). `inline` fait lire la variable à l'exécution. */
+@theme inline {
+  --color-primary: var(--theme-primary);
+  --color-accent: var(--theme-accent);
+  --color-accent-strong: var(--theme-accent-strong);
+  --color-ink: var(--theme-ink);
+  --color-paper: var(--theme-paper);
+  --color-mist: var(--theme-mist);
+  --color-line: var(--theme-line);
+  --color-line-soft: var(--theme-line-soft);
+  --color-muted: var(--theme-muted);
+  --color-muted-dark: var(--theme-muted-dark);
+  --color-body: var(--theme-body);
+  --color-on-dark: var(--theme-on-dark);
+  --color-on-dark-muted: var(--theme-on-dark-muted);
+  --color-field: var(--theme-field);
+  --color-field-line: var(--theme-field-line);
+  --color-placeholder: var(--theme-placeholder);
+  --color-placeholder-line: var(--theme-placeholder-line);
 
-  --shadow-card: 0 18px 40px rgb(28 42 26 / 0.08);
+  --color-gradient-start: var(--theme-gradient-start);
+  --color-gradient-end: var(--theme-gradient-end);
+
+  --shadow-card: 0 18px 40px
+    color-mix(in srgb, var(--theme-ink) 8%, transparent);
+  --shadow-soft: 0 2px 8px color-mix(in srgb, var(--theme-ink) 8%, transparent);
+  --shadow-header: 0 8px 24px
+    color-mix(in srgb, var(--theme-ink) 25%, transparent);
+  --shadow-dialog: 0 24px 64px
+    color-mix(in srgb, var(--theme-ink) 35%, transparent);
 }
 
 /* Polices chargées par next/font (voir app/layout.tsx) */
@@ -42,14 +51,14 @@
     @apply bg-paper font-sans leading-normal text-ink antialiased;
   }
   a {
-    @apply text-forest hover:text-ink;
+    @apply text-primary hover:text-ink;
   }
   :focus-visible {
-    outline: 2px solid var(--color-forest);
+    outline: 2px solid var(--color-primary);
     outline-offset: 3px;
   }
   .on-dark :focus-visible {
-    outline-color: var(--color-sage);
+    outline-color: var(--color-accent);
   }
   summary::-webkit-details-marker {
     display: none;
@@ -63,13 +72,13 @@
 
 @layer components {
   .eyebrow {
-    @apply text-sm font-semibold tracking-[0.08em] text-forest uppercase;
+    @apply text-sm font-semibold tracking-[0.08em] text-primary uppercase;
   }
   .h2 {
     @apply m-0 leading-[1.1] font-semibold tracking-[-0.02em];
   }
   .serif-accent {
-    @apply font-serif font-normal text-forest italic;
+    @apply font-serif font-normal text-primary italic;
   }
 
   .btn {
@@ -101,11 +110,11 @@
     linear-gradient(180deg, rgb(0 0 0 / 0.55) 0px, rgb(0 0 0 / 0) 220px),
     /* gauche → droite : noir derrière le texte, transparent à droite */
     linear-gradient(
-      90deg,
-      rgb(0 0 0 / 0.85) 0%,
-      rgb(0 0 0 / 0.6) 45%,
-      rgb(0 0 0 / 0) 100%
-    );
+        90deg,
+        rgb(0 0 0 / 0.85) 0%,
+        rgb(0 0 0 / 0.6) 45%,
+        rgb(0 0 0 / 0) 100%
+      );
 }
 
 /* ---------- Héritage portfolio (routes projects / pages WordPress) ---------- */

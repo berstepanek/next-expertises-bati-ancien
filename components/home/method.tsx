@@ -29,7 +29,7 @@ export default async function Method() {
           <li key={`${i}-${step.title}`} className="col-12 sm:col-6 lg:col-3 flex">
             <div className="flex w-full flex-col gap-3 rounded-[22px] border border-line bg-white p-7">
               <span
-                className="flex size-11 items-center justify-center rounded-full bg-forest text-[17px] font-bold text-white"
+                className="flex size-11 items-center justify-center rounded-full bg-primary text-[17px] font-bold text-white"
                 aria-hidden="true"
               >
                 {i + 1}

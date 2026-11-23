@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { EXCLUDED_WP_PAGES, pageMetadata, toPlainText } from "@/lib/seo";
 import { site } from "@/lib/content";
+import SectionHeading from "@/components/ui/section-heading";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -47,18 +48,27 @@ export default async function Page({ params }: Props) {
   }
 
   return (
-    <article className="py-24">
-      <div className="container">
-        <h1
-          className="text-3xl font-bold"
-          dangerouslySetInnerHTML={{ __html: page.title }}
-        />
-
+    <>
+      <section className="on-dark text-paper bg-linear-to-br from-gradient-start to-gradient-end">
+        <div className="container py-24">
+          <SectionHeading
+            as="h1"
+            eyebrow="Page"
+            title={page.title}
+            dark
+            introClassName="text-lg text-on-dark-muted max-w-[640px]"
+          />
+        </div>
+      </section>
+      <section
+        id="contact"
+        className={`container scroll-mt-6 pb-[104px] pt-24`}
+      >
         <div
           className="cms-content mt-8 prose"
           dangerouslySetInnerHTML={{ __html: page.content }}
         />
-      </div>
-    </article>
+      </section>
+    </>
   );
 }

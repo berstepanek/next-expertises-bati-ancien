@@ -7,7 +7,7 @@ const infoLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
-const linkClass = "text-on-dark-muted no-underline hover:text-white";
+const linkClass = "text-white no-underline hover:text-primary";
 
 /* Le footer est rendu sur toutes les pages : une erreur WordPress
  * ne doit pas casser le site, on masque simplement la liste. */
@@ -24,13 +24,13 @@ export default async function Footer() {
   const expertises = await getFooterExpertises();
 
   return (
-    <footer className="on-dark bg-ink text-on-dark-muted">
+    <footer className="bg-black text-on-dark-muted">
       <div className="container flex flex-col gap-10 pt-14 pb-8">
         <div className="row gy-10">
           <div className="col-12 md:col-6 lg:col-5">
             <div className="flex max-w-[360px] flex-col gap-3">
-              <span className="text-xl font-bold text-paper">{site.name}</span>
-              <span className="text-[15px]">
+              <span className="text-xl font-bold text-white">{site.name}</span>
+              <span className="text-[15px] text-white">
                 Expertise indépendante des maisons et bâtiments anciens. Zone
                 d&apos;intervention : {site.zone}.
               </span>
@@ -43,7 +43,7 @@ export default async function Footer() {
             >
               <Link
                 href="/expertises"
-                className="font-bold text-paper no-underline hover:text-white"
+                className="font-bold text-white no-underline hover:text-primary"
               >
                 Expertises
               </Link>
@@ -62,7 +62,7 @@ export default async function Footer() {
             aria-label="Informations"
             className="col-6 md:col-3 flex flex-col gap-2.5 text-[15px]"
           >
-            <span className="font-bold text-paper">Informations</span>
+            <span className="font-bold text-white">Informations</span>
             {infoLinks.map((l) => (
               <Link key={l.href} href={l.href} className={linkClass}>
                 {l.label}
@@ -79,7 +79,7 @@ export default async function Footer() {
             {/* TODO : créer les pages /mentions-legales et /confidentialite */}
             <Link
               href="/politique-de-confidentialite"
-              className="text-on-dark-muted hover:text-white"
+              className="text-white  hover:text-primary"
             >
               Politique de confidentialite
             </Link>

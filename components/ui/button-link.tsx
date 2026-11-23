@@ -2,12 +2,13 @@ import Link from "next/link";
 import Icon from "./icon";
 
 const variants = {
+  primary: "bg-primary text-ink hover:bg-white hover:text-ink",
   paper: "bg-paper text-ink hover:bg-white hover:text-ink",
-  sage: "bg-sage text-ink hover:bg-white hover:text-ink",
+  accent: "bg-accent text-ink hover:bg-white hover:text-ink",
   "outline-light":
     "border-[1.5px] border-white/70 text-white hover:bg-white/10 hover:text-white",
-  "outline-forest":
-    "border-[1.5px] border-forest text-forest hover:bg-forest hover:text-white",
+  "outline-primary":
+    "border-[1.5px] border-primary text-primary hover:bg-primary hover:text-white",
 } as const;
 
 const sizes = {

@@ -5,11 +5,11 @@ import { Link } from "next-view-transitions";
 const styles = {
   bar: {
     list: "flex gap-x-4",
-    link: "text-white no-underline hover:text-sage",
+    link: "text-white no-underline hover:text-accent",
   },
   drawer: {
     list: "m-0 flex list-none flex-col p-0",
-    link: "flex min-h-12 items-center border-b border-line text-lg font-medium text-ink no-underline hover:text-forest",
+    link: "flex min-h-12 items-center border-b border-line text-lg font-medium text-ink no-underline hover:text-primary",
   },
 } as const;
 

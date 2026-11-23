@@ -113,7 +113,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={pending}
-        className="min-h-[52px] cursor-pointer rounded-full border-0 bg-forest text-base font-semibold text-white hover:bg-ink disabled:cursor-wait disabled:opacity-70"
+        className="min-h-[52px] cursor-pointer rounded-full border-0 bg-primary text-base font-semibold text-white hover:bg-ink disabled:cursor-wait disabled:opacity-70"
       >
         {pending ? "Envoi…" : "Être rappelé gratuitement"}
       </button>
@@ -121,7 +121,7 @@ export default function ContactForm() {
         role="status"
         aria-live="polite"
         className={`m-0 text-center text-sm font-semibold empty:hidden ${
-          state.status === "error" ? "text-red-700" : "text-forest"
+          state.status === "error" ? "text-red-700" : "text-primary"
         }`}
       >
         {state.status !== "idle" ? state.message : ""}

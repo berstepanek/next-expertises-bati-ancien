@@ -29,7 +29,7 @@ export default async function Expert() {
               />
             ) : (
               <div className="flex aspect-[4/5] max-h-[560px] flex-col items-center justify-center gap-3 rounded-[28px] border border-dashed border-placeholder-line bg-placeholder text-muted-dark">
-                <Icon name="person" strokeWidth={1.4} className="size-14 text-forest" />
+                <Icon name="person" strokeWidth={1.4} className="size-14 text-primary" />
                 <span className="text-[15px] font-semibold">
                   [Photo de l&apos;expert sur un chantier]
                 </span>
@@ -53,7 +53,7 @@ export default async function Expert() {
                       <Icon
                         name="check-circle"
                         strokeWidth={1.8}
-                        className="size-[22px] shrink-0 text-forest"
+                        className="size-[22px] shrink-0 text-primary"
                       />
                       <span className="flex flex-col">
                         <span className="text-base font-bold">{item.title}</span>

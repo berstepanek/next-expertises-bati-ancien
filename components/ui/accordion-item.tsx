@@ -19,7 +19,7 @@ export default function AccordionItem({
         {question}
         <Icon
           name="chevron"
-          className="size-5 shrink-0 text-forest transition-transform group-open:rotate-180 motion-reduce:transition-none"
+          className="size-5 shrink-0 text-primary transition-transform group-open:rotate-180 motion-reduce:transition-none"
         />
       </summary>
       <div className="mt-3 text-base text-muted">{children}</div>

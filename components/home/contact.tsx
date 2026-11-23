@@ -11,7 +11,7 @@ function IconBadge({ name }: { name: IconName }) {
 }
 
 const linkClass =
-  "flex min-h-11 items-center gap-3.5 text-paper no-underline hover:text-sage";
+  "flex min-h-11 items-center gap-3.5 text-paper no-underline hover:text-accent";
 
 type ContactProps = {
   /** Titre du bloc (par défaut : « Parlons de votre maison ») */
@@ -25,7 +25,7 @@ type ContactProps = {
 export default function Contact({
   title = (
     <>
-      Parlons de <span className="serif-accent text-sage">votre maison</span>
+      Parlons de <span className="serif-accent text-accent">votre maison</span>
     </>
   ),
   intro = "Décrivez votre situation : nous vous rappelons sous 48 h pour en parler, gratuitement et sans engagement.",
@@ -36,7 +36,7 @@ export default function Contact({
       id="contact"
       className={`container scroll-mt-6 pb-[104px] ${className}`}
     >
-      <div className="on-dark rounded-[32px] bg-forest p-[clamp(28px,5vw,64px)] text-paper">
+      <div className="on-dark rounded-[32px] bg-linear-to-br from-gradient-start to-gradient-end p-[clamp(28px,5vw,64px)] text-paper">
         <div className="row g-12">
           <div className="col-12 lg:col-5 flex flex-col gap-5">
             <h2 className="h2 text-[clamp(32px,4vw,46px)]">{title}</h2>

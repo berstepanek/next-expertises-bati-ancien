@@ -19,6 +19,7 @@ import {
   type SearchDoc,
   type SearchDocType,
 } from "@/lib/search";
+import { useMounted } from "@/lib/use-mounted";
 
 const TYPE_LABEL: Record<SearchDocType, string> = {
   expertise: "Expertise",
@@ -39,7 +40,7 @@ function Highlighted({ text, terms }: { text: string; terms: string[] }) {
     <>
       {highlight(text, terms).map((part, i) =>
         part.match ? (
-          <mark key={i} className="rounded-sm bg-sage/70 px-0.5 text-ink">
+          <mark key={i} className="rounded-sm bg-accent/70 px-0.5 text-ink">
             {part.text}
           </mark>
         ) : (
@@ -58,13 +59,11 @@ export default function SearchDialog() {
   const inputRef = useRef<HTMLInputElement>(null);
   const listId = useId();
 
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const [docs, setDocs] = useState<SearchDoc[]>([]);
   const [status, setStatus] = useState<Status>("idle");
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
-
-  useEffect(() => setMounted(true), []);
 
   const results = useMemo(() => searchDocs(docs, query), [docs, query]);
   const terms = useMemo(() => queryTerms(query), [query]);
@@ -132,11 +131,11 @@ export default function SearchDialog() {
       aria-label="Rechercher sur le site"
       // Clic sur le fond (en dehors du panneau) : fermeture
       onClick={(e) => e.target === e.currentTarget && close()}
-      className="m-0 mx-auto mt-[8vh] w-[calc(100%-32px)] max-w-[640px] max-h-[80vh] overflow-hidden rounded-[28px] border border-line bg-paper p-0 text-ink shadow-[0_24px_64px_rgb(20_32_18/0.35)] backdrop:bg-ink/60 backdrop:backdrop-blur-sm"
+      className="m-0 mx-auto mt-[8vh] w-[calc(100%-32px)] max-w-[640px] max-h-[80vh] overflow-hidden rounded-[28px] border border-line bg-paper p-0 text-ink shadow-dialog backdrop:bg-ink/60 backdrop:backdrop-blur-sm"
     >
       <div className="flex max-h-[80vh] flex-col">
         <div className="flex items-center gap-3 border-b border-line px-5 py-3">
-          <Icon name="search" className="size-5 shrink-0 text-forest" />
+          <Icon name="search" className="size-5 shrink-0 text-primary" />
           <input
             ref={inputRef}
             type="search"
@@ -179,7 +178,7 @@ export default function SearchDialog() {
                     <Link
                       href={s.href}
                       onClick={close}
-                      className="inline-flex min-h-11 items-center rounded-full border border-line bg-white px-4 text-[15px] font-medium text-ink no-underline hover:border-forest hover:text-forest"
+                      className="inline-flex min-h-11 items-center rounded-full border border-line bg-white px-4 text-[15px] font-medium text-ink no-underline hover:border-primary hover:text-primary"
                     >
                       {s.label}
                     </Link>
@@ -207,7 +206,7 @@ export default function SearchDialog() {
               <Link
                 href="/contact"
                 onClick={close}
-                className="self-start font-semibold text-forest underline"
+                className="self-start font-semibold text-primary underline"
               >
                 Posez-nous votre question
               </Link>
@@ -234,13 +233,11 @@ export default function SearchDialog() {
                     onMouseEnter={() => setActive(i)}
                     tabIndex={-1}
                     className={`flex flex-col gap-1 rounded-[18px] px-4 py-3 text-ink no-underline ${
-                      i === active
-                        ? "bg-white shadow-[0_2px_8px_rgb(20_32_18/0.08)]"
-                        : ""
+                      i === active ? "bg-white shadow-soft" : ""
                     }`}
                   >
                     <span className="flex items-center gap-2">
-                      <span className="rounded-full bg-forest/10 px-2 py-0.5 text-xs font-semibold text-forest">
+                      <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">
                         {TYPE_LABEL[r.type]}
                       </span>
                       <span className="font-semibold">
@@ -276,7 +273,7 @@ export default function SearchDialog() {
         onMouseEnter={loadIndex}
         aria-label="Rechercher (Ctrl+K)"
         aria-haspopup="dialog"
-        className="flex min-h-11 cursor-pointer min-w-11 items-center justify-center gap-2 text-[15px] font-semibold text-white hover:text-sage"
+        className="flex min-h-11 cursor-pointer min-w-8 items-center justify-center gap-2 text-[15px] font-semibold text-white hover:text-accent"
       >
         <Icon name="search" strokeWidth={1.8} className="size-5" />
       </button>

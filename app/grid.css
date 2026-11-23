@@ -16,7 +16,7 @@
 @theme {
   --grid-columns: 12;
   --grid-gutter: calc(var(--spacing) * 6); /* 1.5rem, comme Bootstrap */
-  --container-site: 1200px; /* largeur max du contenu (maquette) */
+  --container-site: 1400px; /* largeur max du contenu (maquette) */
   --container-padding: calc(var(--spacing) * 6); /* px-6 */
 }
 

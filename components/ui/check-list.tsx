@@ -2,7 +2,7 @@ import Icon from "./icon";
 
 export default function CheckList({
   items,
-  classCss = "text-forest",
+  classCss = "text-primary",
 }: {
   items: string[];
   classCss: string;

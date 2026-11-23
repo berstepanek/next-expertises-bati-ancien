@@ -14,7 +14,7 @@ export default function Header() {
         href="/#top"
         className="flex items-center gap-2.5 text-white no-underline hover:text-white"
       >
-        <span className="flex size-10 items-center justify-center rounded-[10px] border border-white/30 bg-white/15">
+        <span className="flex size-10 items-center justify-center rounded-full border border-white/30 bg-white/15">
           <Icon
             name="house"
             strokeWidth={1.8}
@@ -22,9 +22,9 @@ export default function Header() {
           />
         </span>
         <span className="flex flex-col leading-[1.1]">
-          <span className="text-lg font-bold">{site.name}</span>
+          <span className="sm:text-lg sm:font-bold">{site.name}</span>
 
-          <span className="text-[13px] text-on-dark-muted">
+          <span className="hidden sm:block text-[13px] text-white">
             {site.baseline}
           </span>
         </span>
@@ -37,21 +37,22 @@ export default function Header() {
         <Menu></Menu>
       </nav>
 
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-nowrap items-center gap-3">
+        <SearchDialog />
         <MobileMenu>
           <Menu variant="drawer" />
         </MobileMenu>
-        <SearchDialog />
+
         <a
           href={site.phone.href}
-          className="hidden lg:flex min-h-11 items-center gap-2 text-[15px] font-semibold text-white no-underline hover:text-sage"
+          className="hidden lg:flex min-h-11 items-center gap-2 text-[15px] font-semibold text-white no-underline hover:text-accent"
         >
           <Icon name="phone" strokeWidth={1.8} />
           {site.phone.label}
         </a>
         <ButtonLink
           href="/contact"
-          variant="sage"
+          variant="primary"
           size="md"
           className="hidden lg:inline-flex"
         >

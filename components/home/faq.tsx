@@ -39,7 +39,7 @@ export default async function Faq() {
               {faq.answer && <p className="m-0 whitespace-pre-line">{faq.answer}</p>}
               <Link
                 href={`/faq/${faq.slug}`}
-                className="mt-3 inline-block font-semibold text-forest underline"
+                className="mt-3 inline-block font-semibold text-primary underline"
               >
                 En savoir plus
               </Link>

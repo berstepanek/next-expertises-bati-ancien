@@ -47,7 +47,7 @@ export default async function FaqPage() {
           ]),
         ]}
       />
-      <section className="on-dark bg-forest text-paper">
+      <section className="on-dark text-paper bg-linear-to-br from-gradient-start to-gradient-end">
         <div className="container py-24">
           <SectionHeading
             as="h1"
@@ -58,7 +58,7 @@ export default async function FaqPage() {
           />
           {intro && (
             <div
-              className="cms-content mt-3.5 flex max-w-[640px] flex-col gap-4 text-lg text-on-dark-muted [&_p]:m-0 [&_ul]:m-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:m-0 [&_ol]:list-decimal [&_ol]:pl-6 [&_a]:text-sage [&_a]:underline"
+              className="cms-content mt-3.5 flex max-w-[640px] flex-col gap-4 text-lg text-on-dark-muted [&_p]:m-0 [&_ul]:m-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:m-0 [&_ol]:list-decimal [&_ol]:pl-6 [&_a]:text-accent [&_a]:underline"
               dangerouslySetInnerHTML={{ __html: intro }}
             />
           )}
@@ -85,7 +85,7 @@ export default async function FaqPage() {
                     )}
                     <Link
                       href={`/faq/${faq.slug}`}
-                      className="mt-3 inline-block font-semibold text-forest underline"
+                      className="mt-3 inline-block font-semibold text-primary underline"
                     >
                       En savoir plus
                     </Link>

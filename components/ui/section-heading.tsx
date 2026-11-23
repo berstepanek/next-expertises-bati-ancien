@@ -19,14 +19,14 @@ export default function SectionHeading({
   accent?: string;
   intro?: React.ReactNode;
   align?: "left" | "center";
-  /** Fond sombre : eyebrow et accent en sage */
+  /** Fond sombre : eyebrow et accent clair */
   dark?: boolean;
   titleClassName?: string;
   introClassName?: string;
   className?: string;
 }) {
   const alignClass = align === "center" ? "items-center text-center" : "";
-  const accentColor = dark ? "text-sage" : "";
+  const accentColor = dark ? "text-accent" : "";
 
   return (
     <div className={`flex flex-col gap-3.5 ${alignClass} ${className}`}>

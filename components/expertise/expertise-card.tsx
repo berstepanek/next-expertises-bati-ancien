@@ -23,7 +23,7 @@ export default function ExpertiseCard({
 
   return (
     <article className="flex w-full flex-col overflow-hidden rounded-[28px] border border-line bg-white shadow-card">
-      <div className="flex flex-col gap-5 bg-forest px-7 pt-7 pb-8 text-white">
+      <div className="flex flex-col gap-5  px-7 pt-7 pb-8 bg-linear-to-br from-gradient-start to-gradient-end text-white">
         <div className="flex items-start justify-between">
           <span className="flex size-[60px] items-center justify-center rounded-[18px] bg-white/15">
             <Icon
@@ -33,7 +33,7 @@ export default function ExpertiseCard({
             />
           </span>
           <span
-            className="font-serif text-[56px] leading-none italic text-sage"
+            className="font-serif text-[56px] leading-none italic text-accent"
             aria-hidden="true"
           >
             {String(index + 1).padStart(2, "0")}
@@ -57,7 +57,7 @@ export default function ExpertiseCard({
       </div>
       <div className="flex grow flex-col gap-5 p-7">
         {expertise.strengths.length > 0 && (
-          <CheckList items={expertise.strengths} classCss="text-forest" />
+          <CheckList items={expertise.strengths} classCss="text-primary" />
         )}
         {expertise.target && (
           <p className="m-0 rounded-[14px] bg-paper px-4 py-3.5 text-[15px] text-muted-dark">
@@ -67,7 +67,7 @@ export default function ExpertiseCard({
         )}
         <Link
           href={`/expertises/${expertise.slug}`}
-          className="btn mt-auto min-h-[50px] gap-2 border-[1.5px] border-forest text-base text-forest hover:bg-forest hover:text-white"
+          className="btn mt-auto min-h-[50px] gap-2 border-[1.5px] border-primary text-base text-primary hover:bg-primary hover:text-white"
         >
           Découvrir l&apos;expertise
           <Icon name="arrow" className="size-[18px]" />

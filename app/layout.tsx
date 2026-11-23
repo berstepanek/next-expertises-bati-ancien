@@ -7,6 +7,7 @@ import Footer from "@/components/layout/footer";
 import IconSprite from "@/components/ui/icon-sprite";
 import { site } from "@/lib/content";
 import { getGlobalStylesheet } from "@/services/global-style";
+import { themeToCss } from "@/lib/theme";
 import { organizationJsonLd, SITE_URL } from "@/lib/seo";
 import JsonLd from "@/components/seo/json-ld";
 
@@ -62,6 +63,10 @@ export default async function RootLayout({
       className={`${urbanist.variable} ${instrumentSerif.variable}`}
     >
       <head>
+        {/* Couleurs du thème (lib/theme.ts) → variables --theme-* */}
+        <style href="theme" precedence="default">
+          {themeToCss()}
+        </style>
         {globalCss && (
           <style
             href="wp-global-styles"

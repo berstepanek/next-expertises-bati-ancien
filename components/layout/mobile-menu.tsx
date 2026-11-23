@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { site } from "@/lib/content";
+import { useMounted } from "@/lib/use-mounted";
 import Icon from "@/components/ui/icon";
 import ButtonLink from "@/components/ui/button-link";
 
@@ -16,10 +17,8 @@ export default function MobileMenu({
 }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const [open, setOpen] = useState(false);
-
-  useEffect(() => setMounted(true), []);
 
   const show = useCallback(() => {
     const dialog = dialogRef.current;
@@ -51,7 +50,7 @@ export default function MobileMenu({
           close();
         }
       }}
-      className="m-0 ml-auto h-dvh max-h-none w-[min(360px,88vw)] max-w-none translate-x-full overflow-hidden border-l border-line bg-paper p-0 text-ink shadow-[0_24px_64px_rgb(20_32_18/0.35)] transition-[translate,display,overlay] transition-discrete duration-300 ease-out backdrop:bg-ink/60 backdrop:backdrop-blur-sm open:translate-x-0 starting:open:translate-x-full motion-reduce:transition-none"
+      className="m-0 ml-auto h-dvh max-h-none w-[min(360px,88vw)] max-w-none translate-x-full overflow-hidden border-l border-line bg-paper p-0 text-ink shadow-dialog transition-[translate,display,overlay] transition-discrete duration-300 ease-out backdrop:bg-ink/60 backdrop:backdrop-blur-sm open:translate-x-0 starting:open:translate-x-full motion-reduce:transition-none"
     >
       <div className="flex h-full flex-col">
         <div className="flex items-center justify-between gap-3 border-b border-line px-5 py-3">
@@ -66,19 +65,22 @@ export default function MobileMenu({
           </button>
         </div>
 
-        <nav aria-label="Navigation mobile" className="flex-1 overflow-y-auto px-5 py-2">
+        <nav
+          aria-label="Navigation mobile"
+          className="flex-1 overflow-y-auto px-5 py-2"
+        >
           {children}
         </nav>
 
         <div className="flex flex-col gap-3 border-t border-line px-5 py-5">
           <a
             href={site.phone.href}
-            className="flex min-h-11 items-center gap-2 text-[15px] font-semibold text-ink no-underline hover:text-forest"
+            className="flex min-h-11 items-center gap-2 text-[15px] font-semibold text-ink no-underline hover:text-primary"
           >
             <Icon name="phone" strokeWidth={1.8} />
             {site.phone.label}
           </a>
-          <ButtonLink href="/contact" variant="sage" size="md">
+          <ButtonLink href="/contact" variant="accent" size="md">
             Demander une expertise
           </ButtonLink>
         </div>
@@ -95,7 +97,7 @@ export default function MobileMenu({
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls="mobile-menu"
-        className="flex min-h-11 min-w-11 cursor-pointer items-center justify-center text-white hover:text-sage lg:hidden"
+        className="flex min-h-11 min-w-8 cursor-pointer items-center justify-center text-white hover:text-accent lg:hidden"
       >
         <Icon name="bar" className="size-5" />
       </button>

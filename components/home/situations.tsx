@@ -10,7 +10,7 @@ export default async function Situations() {
   }
 
   return (
-    <section className="on-dark bg-forest text-paper">
+    <section className="bg-linear-to-br from-gradient-start to-gradient-end text-paper">
       <div className="container py-24">
         <div className="row gy-14 items-start">
           <div className="col-12 lg:col-5 flex flex-col gap-[18px] lg:pr-10">
@@ -23,7 +23,11 @@ export default async function Situations() {
               introClassName="text-lg text-on-dark-muted"
               className="gap-[18px]"
             />
-            <ButtonLink href="/contact" size="md" className="mt-2 min-h-12 self-start px-[22px]">
+            <ButtonLink
+              href="/contact"
+              size="md"
+              className="mt-2 min-h-12 self-start px-[22px]"
+            >
               Décrire ma situation
             </ButtonLink>
           </div>
@@ -33,7 +37,7 @@ export default async function Situations() {
               {situations.labels.map((label, i) => (
                 <li key={`${i}-${label}`} className="col-12 sm:col-6 flex">
                   <span className="flex w-full gap-3 rounded-2xl border border-paper/20 bg-paper/10 px-5 py-[18px] text-base">
-                    <span className="font-bold text-sage" aria-hidden="true">
+                    <span className="font-bold text-accent" aria-hidden="true">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     {label}

@@ -18,7 +18,7 @@ export default async function ExpertisesPage() {
 
   return (
     <>
-      <section className="on-dark bg-forest text-paper">
+      <section className="on-dark text-paper bg-linear-to-br from-gradient-start to-gradient-end">
         <div className="container py-24">
           <SectionHeading
             as="h1"
@@ -41,7 +41,10 @@ export default async function ExpertisesPage() {
           ) : (
             <ul className="row g-6 m-0 list-none p-0">
               {expertises.map((expertise, i) => (
-                <li key={expertise.id} className="col-12 md:col-6 lg:col-4 flex">
+                <li
+                  key={expertise.id}
+                  className="col-12 md:col-6 lg:col-4 flex"
+                >
                   <ExpertiseCard expertise={expertise} index={i} />
                 </li>
               ))}

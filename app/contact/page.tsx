@@ -14,7 +14,7 @@ function IconBadge({ name }: { name: IconName }) {
 }
 
 const linkClass =
-  "flex min-h-11 items-center gap-3.5 text-paper no-underline hover:text-sage";
+  "flex min-h-11 items-center gap-3.5 text-paper no-underline hover:text-accent";
 
 type ContactProps = {
   /** Titre du bloc (par défaut : « Parlons de votre maison ») */
@@ -37,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function ContactPage({
   title = (
     <>
-      Parlons de <span className="serif-accent text-sage">votre maison</span>
+      Parlons de <span className="serif-accent text-accent">votre maison</span>
     </>
   ),
   intro = "Décrivez votre situation : nous vous rappelons sous 48 h pour en parler, gratuitement et sans engagement.",
@@ -45,14 +45,14 @@ export default function ContactPage({
 }: ContactProps) {
   return (
     <>
-      <section className="on-dark bg-forest text-paper">
+      <section className="on-dark text-paper bg-linear-to-br from-gradient-start to-gradient-end">
         <div className="container py-24">
           <SectionHeading
             as="h1"
             eyebrow="Contact"
             title="Parlons de"
-            accent="votre maison"
-            intro="Décrivez votre situation : nous vous rappelons sous 48 h pour en parler, gratuitement et sans engagement."
+            accent="votre besoin"
+            intro=" Cabinet d'expertise indépendant, nous mettons notre savoir-faire technique et notre maîtrise du droit de la construction au service de la préservation des bâtiments traditionnels. Nous intervenons à vos côtés pour diagnostiquer les pathologies, résoudre les litiges de travaux et sécuriser vos transactions immobilières."
             dark
             introClassName="text-lg text-on-dark-muted max-w-[640px]"
           />
@@ -63,7 +63,7 @@ export default function ContactPage({
         id="contact"
         className={`container scroll-mt-6 pb-[104px] pt-24 ${className}`}
       >
-        <div className="on-dark rounded-[32px] bg-forest p-[clamp(28px,5vw,64px)] text-paper">
+        <div className="on-dark rounded-[32px] bg-linear-to-br from-gradient-start to-gradient-end p-[clamp(28px,5vw,64px)] text-paper">
           <div className="row g-12">
             <div className="col-12 lg:col-5 flex flex-col gap-5">
               <h2 className="h2 text-[clamp(32px,4vw,46px)]">{title}</h2>

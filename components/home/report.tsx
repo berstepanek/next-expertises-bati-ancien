@@ -30,7 +30,7 @@ export default async function Report() {
               >
                 <Icon
                   name="check-circle"
-                  className="mt-0.5 size-[22px] shrink-0 text-forest"
+                  className="mt-0.5 size-[22px] shrink-0 text-primary"
                 />
                 <span className="flex flex-col">
                   <span className="text-[17px] font-bold">{item.title}</span>

@@ -2,7 +2,11 @@
  * Utilisation : <Icon name="phone" /> (components/ui/icon.tsx). */
 export default function IconSprite() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" className="hidden" aria-hidden="true">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="hidden"
+      aria-hidden="true"
+    >
       <defs>
         <symbol id="i-house" viewBox="0 0 24 24">
           <path d="M3 11 12 4l9 7" />
@@ -73,8 +77,8 @@ export default function IconSprite() {
           <circle cx="11" cy="11" r="7" />
           <path d="m20 20-3.5-3.5" />
         </symbol>
-        <symbol id="i-close" viewBox="0 0 24 24">
-          <path d="M18 6 6 18M6 6l12 12" />
+        <symbol id="i-bar" viewBox="0 0 448 512">
+          <path fill="currentColor" stroke="none" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z" />
         </symbol>
       </defs>
     </svg>
